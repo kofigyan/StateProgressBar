@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/footer"
+    android:layout_below="@+id/header">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+
+        <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.ContentHeaderView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:headerSrc="@mipmap/ic_details"
+            app:headerTitle="Basic Info"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.ContentHeaderView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_usage_rounded_corner"
+            android:orientation="vertical">
+
+            <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView
+                android:id="@+id/udvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:detailsLabel="Name"
+                app:detailsValue="Not Specified"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView>
+
+            <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView
+                android:id="@+id/udvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:detailsLabel="Email Address"
+                app:detailsValue="Not Specified"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView>
+
+            <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView
+                android:id="@+id/udvPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:detailsLabel="Phone Number"
+                app:detailsValue="Not Specified"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView>
+
+
+            <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView
+                android:id="@+id/udvPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:detailsLabel="Password"
+                app:detailsValue="Not Specified"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.UserDetailsView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

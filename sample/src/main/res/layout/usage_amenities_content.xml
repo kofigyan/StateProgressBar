@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/footer"
+    android:layout_below="@+id/header">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+
+        <com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.ContentHeaderView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:headerSrc="@mipmap/ic_amenities"
+            app:headerTitle="Appliances"></com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.ContentHeaderView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_usage_rounded_corner"
+            android:paddingBottom="8dp">
+
+
+            <View
+                android:id="@+id/vSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentTop="true"
+                android:background="#dfdfdf"
+                android:paddingTop="2dp" />
+
+
+            <CheckBox
+                android:id="@+id/cbAirCondition"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/vSeparator"
+                android:text="Air Conditioning" />
+
+
+            <CheckBox
+                android:id="@+id/cbWashingMachine"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/cbAirCondition"
+                android:text="Washing Machine" />
+
+            <CheckBox
+                android:id="@+id/cbMicrowave"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/cbWashingMachine"
+                android:text="Microwave" />
+
+
+            <CheckBox
+                android:id="@+id/cbRefrigerator"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/cbMicrowave"
+                android:text="Refrigerator" />
+
+
+            <CheckBox
+                android:id="@+id/cbFan"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/cbRefrigerator"
+                android:text="Fan" />
+
+
+            <CheckBox
+                android:id="@+id/cbCooker"
+                style="@style/CheckBoxStyle"
+                android:layout_below="@+id/cbFan"
+                android:text="Cooker" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

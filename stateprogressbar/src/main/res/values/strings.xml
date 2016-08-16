@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">stateprogressbar</string>
+    <string name="check_icon">&#xf00c;</string>
+</resources>

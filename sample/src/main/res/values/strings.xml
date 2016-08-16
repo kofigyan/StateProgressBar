@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">StateProgressBar</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+
+     <string name="success_completed_text">Successfully Completed</string>
+    <string name="details_here_text">Details Here</string>
+    <string name="pricing_here_text">Pricing Here</string>
+    <string name="status_here_text">Status Here</string>
+    <string name="amenities_here_text">Amenities Here</string>
+    <string name="spacing">Change Description Spacing</string>
+    <string name="description_size">Change Description Size </string>
+
+    <string-array name="features_titles">
+        <item>States</item>
+        <item>Check</item>
+        <item>Check 2</item>
+        <item>Animation</item>
+        <item>Description</item>
+        <item>Dimension</item>
+        <item>Color</item>
+        <item>Usage</item>
+    </string-array>
+
+    <string-array name="features_descriptions">
+        <item>Basic demo with different states</item>
+        <item>Check states completed demo</item>
+        <item>All states completed demo</item>
+        <item>Animate to current state demo</item>
+        <item>Describe each state demo</item>
+        <item>Changing state dimensions demo</item>
+        <item>Coloring state and decription demo</item>
+        <item>Real world example</item>
+    </string-array>
+
+    <string-array name="states_list_items">
+        <item>4 States</item>
+        <item>3 States</item>
+        <item>2 States</item>
+    </string-array>
+
+
+</resources>

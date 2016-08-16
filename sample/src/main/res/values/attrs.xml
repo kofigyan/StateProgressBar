@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserDetailsView">
+
+        <attr name="detailsLabel" format="string" />
+        <attr name="detailsValue" format="string" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="ContentHeaderView">
+
+        <attr name="headerTitle" format="string" />
+        <attr name="headerSrc" format="reference" />
+
+    </declare-styleable>
+
+
+</resources>

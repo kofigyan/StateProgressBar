@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/color"
+        android:title="Change Color"></item>
+    <item
+        android:id="@+id/size"
+        android:title="Change Size"></item>
+
+    <item
+        android:id="@+id/animation"
+        android:title="Animate to Current State"></item>
+
+
+    <item
+        android:id="@+id/line_thickness"
+        android:title="Change Line Thickness"></item>
+
+
+</menu>

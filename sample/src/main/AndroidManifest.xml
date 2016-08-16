@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kofigyan.stateprogressbarsample" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UsagePricingActivity" />
+
+        <activity android:name=".UsageAmenitiesActivity" />
+
+        <activity android:name=".UsageDetailsActivity" />
+
+        <activity android:name=".UsageCompleteActivity" />
+
+        <activity android:name=".UsageStatusActivity" />
+
+        <activity android:name=".CheckFourStatesActivity" />
+
+        <activity android:name=".DescriptionFourStatesActivity" />
+
+        <activity android:name=".AnimationFourStatesActivity" />
+
+        <activity android:name=".BasicFourStatesActivity" />
+
+        <activity android:name=".BasicThreeStatesActivity" />
+
+        <activity android:name=".BasicTwoStatesActivity" />
+
+        <activity android:name=".StatesListActivity" />
+
+        <activity android:name=".AllStatesCompletedActivity" />
+
+        <activity android:name=".ChangingStatesSizeActivity" />
+
+        <activity android:name=".ColoringStatesActivity" />
+
+    </application>
+
+</manifest>

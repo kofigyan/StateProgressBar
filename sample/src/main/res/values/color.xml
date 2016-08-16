@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="usage_state_foreground_color">#DB0082</color>
+    <color name="state_background_color">#BDBDBD</color>
+    <color name="state_background_text_color">#808080</color>
+    <color name="state_foreground_text_color">#eeeeee</color>
+    <color name="demo_state_foreground_color">#009688</color>
+
+    <color name="description_background_color">#0BB5FF</color>
+    <color name="description_foreground_color">#002395</color>
+
+    <color name="usage_pink">#b42379</color>
+
+
+</resources>
