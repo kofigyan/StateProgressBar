@@ -197,3 +197,39 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    app:spb_checkStateCompleted="true"/>
 
  ```
+
+
+
+        - Check All States
+
+        ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/check_all_states.png)
+
+ ```
+         <com.kofigyan.stateprogressbar.StateProgressBar
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:spb_currentStateNumber="three"
+         app:spb_maxStateNumber="four"
+         app:spb_enableAllStatesCompleted="true"/>
+
+ ```
+
+        - Animate to current state
+
+        ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/anim_to_current.gif)
+
+ ```
+     <com.kofigyan.stateprogressbar.StateProgressBar
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:spb_currentStateNumber="three"
+         app:spb_maxStateNumber="four"
+         app:spb_stateBackgroundColor="#BDBDBD"
+         app:spb_stateForegroundColor="#DB0082"
+         app:spb_stateNumberBackgroundColor="#808080"
+         app:spb_stateNumberForegroundColor="#eeeeee"
+         app:spb_currentStateDescriptionColor="#DB0082"
+         app:spb_stateDescriptionColor="#808080"
+         app:spb_animateToCurrentProgressState="true"
+         app:spb_checkStateCompleted="true"/>       
+```
