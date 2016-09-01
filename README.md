@@ -136,3 +136,16 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
     stateProgressBar.setCurrentStateDescriptionColor(ContextCompat.getColor(this, R.color.description_foreground_color));
     stateProgressBar.setStateDescriptionColor(ContextCompat.getColor(this,  R.color.description_background_color));
+
+
+## EXTRA DEMOS(With codes)
+
+### A Two-State StateProgressBar
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/two_state_spb.png)
+
+  <com.kofigyan.stateprogressbar.StateProgressBar
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  app:spb_currentStateNumber="one"
+  app:spb_maxStateNumber="two"/>
