@@ -200,11 +200,11 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
 
 
-        - Check All States
+  - Check All States
 
-        ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/check_all_states.png)
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/check_all_states.png)
 
- ```
+  ```
          <com.kofigyan.stateprogressbar.StateProgressBar
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
@@ -212,11 +212,11 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
          app:spb_maxStateNumber="four"
          app:spb_enableAllStatesCompleted="true"/>
 
- ```
+  ```
 
-        - Animate to current state
+   - Animate to current state
 
-        ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/anim_to_current.gif)
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/anim_to_current.gif)
 
  ```
      <com.kofigyan.stateprogressbar.StateProgressBar
