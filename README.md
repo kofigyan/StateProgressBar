@@ -233,3 +233,47 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
          app:spb_animateToCurrentProgressState="true"
          app:spb_checkStateCompleted="true"/>       
 ```
+
+
+- Add Description Data to StateProgressBar
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/add_description_data.png)
+
+```
+ <com.kofigyan.stateprogressbar.StateProgressBar
+ android:id="@+id/your_state_progress_bar_id"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ app:spb_currentStateNumber="two"
+ app:spb_maxStateNumber="four"/>
+
+String[] descriptionData = {"Details", "Status", "Photo", "Confirm"};
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.your_layout);
+
+ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
+ stateProgressBar.setStateDescriptionData(descriptionData);
+
+}
+
+```
+
+
+- Change Dimensions (State,State Number ,State Line and State Description sizes)
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
+
+ ```
+<com.kofigyan.stateprogressbar.StateProgressBar
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ app:spb_descriptionTopSpaceIncrementer="2dp"
+ app:spb_stateDescriptionSize="20sp"
+ app:spb_stateLineThickness="10dp"
+ app:spb_stateSize="40dp"
+ app:spb_stateTextSize="15sp" />
+
+```
