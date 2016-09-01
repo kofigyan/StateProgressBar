@@ -169,3 +169,31 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
   app:spb_maxStateNumber="three"/>
 
   ```
+
+
+  -  A Four-State StateProgressBar
+
+  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/four_state_spb.png)
+
+```
+   <com.kofigyan.stateprogressbar.StateProgressBar
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   app:spb_currentStateNumber="three"
+   app:spb_maxStateNumber="four"/>
+
+```
+
+  -  Check States Completed
+
+  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/check_states_completed.png)
+
+```
+   <com.kofigyan.stateprogressbar.StateProgressBar
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   app:spb_currentStateNumber="three"
+   app:spb_maxStateNumber="four"
+   app:spb_checkStateCompleted="true"/>
+
+ ```
