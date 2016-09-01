@@ -54,3 +54,62 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 
 ```
+
+## XML Attributes
+
+        spb_currentStateNumber => Current state number. Must be one of the following constant values : one , two , three , four .
+        Related method : setCurrentStateNumber(StateNumber)
+
+        spb_maxStateNumber  => Maximum state number. Must be one of the following constant values : one , two , three , four .
+        Related method : setMaxStateNumber(StateNumber)
+
+        spb_stateBackgroundColor  => State background color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setBackgroundColor(int)
+
+        spb_stateForegroundColor  => State foreground color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setForegroundColor(int)
+
+        spb_stateNumberBackgroundColor => State number background color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setStateNumberBackgroundColor(int)
+
+        spb_stateNumberForegroundColor => State number foreground color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setStateNumberForegroundColor(int)
+
+        spb_currentStateDescriptionColor => Current state description color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setCurrentStateDescriptionColor(int)
+
+        spb_stateDescriptionColor => State description color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setStateDescriptionColor(int)
+
+        spb_stateSize => State size . Must be a dimension value with preferrable unit of dp eg. 25dp
+        Related method : setStateSize(float)
+
+        spb_stateTextSize => State text(number) size . Must be a dimension value with preferrable unit of sp eg. 15sp
+        Related method : setStateNumberTextSize(float)
+
+        spb_stateDescriptionSize => State description size . Must be a dimension value with preferrable unit of dp eg. 20dp
+        Related method : setStateDescriptionSize(float)        
+
+        spb_stateLineThickness => State joining line size(thickness) . Must be a dimension value with preferrable unit of dp eg. 10dp
+        Related method : setStateLineThickness(float)
+
+        spb_checkStateCompleted => Check completed states . Must be a boolean value,either "true" or "false"
+        Related method : checkStateCompleted(boolean)        
+
+        spb_animateToCurrentProgressState => Animate joining line to current progress state . Must be a boolean value,either "true" or "false"
+        Related method : enableAnimationToCurrentState(boolean)        
+
+        spb_enableAllStatesCompleted => Check all states . Must be a boolean value,either "true" or "false"
+        Related method : setAllStatesCompleted(boolean)         
+
+        spb_descriptionTopSpaceDecrementer => Space between state and description decrementer . Must be a dimension value with preferrable unit of dp eg. 10dp
+        Related method : setDescriptionTopSpaceDecrementer(float)
+
+        spb_descriptionTopSpaceIncrementer => Space between state and description incrementer . Must be a dimension value with preferrable unit of dp eg. 10dp
+        Related method : setDescriptionTopSpaceIncrementer(float)
+
+        spb_animationDuration => State joining line animation duration . Must be an integer value eg. "500" , "1000" , "2000" , "5000" , "10000" etc
+        Related method : setAnimationDuration(int)
+
+        spb_animationStartDelay => State joining line animation start delay . Must be an integer value eg. "500" , "1000" , "2000" , "5000" , "10000" etc
+        Related method : setAnimationStartDelay(int)
