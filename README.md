@@ -139,6 +139,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
 
 
+
+
 ### EXTRA DEMOS(With codes)
 
  A Two-State StateProgressBar
@@ -153,3 +155,17 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
   app:spb_maxStateNumber="two"/>
 
 ```
+
+
+ A Three-State StateProgressBar
+
+  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/three_state_spb.png)
+
+```
+  <com.kofigyan.stateprogressbar.StateProgressBar
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  app:spb_currentStateNumber="two"
+  app:spb_maxStateNumber="three"/>
+
+  ```
