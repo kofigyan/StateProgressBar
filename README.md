@@ -113,3 +113,26 @@ protected void onCreate(Bundle savedInstanceState) {
 
         spb_animationStartDelay => State joining line animation start delay . Must be an integer value eg. "500" , "1000" , "2000" , "5000" , "10000" etc
         Related method : setAnimationStartDelay(int)
+
+
+## JAVA
+
+StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_progress_bar);
+
+    stateProgressBar.setForegroundColor(ContextCompat.getColor(this, R.color.demo_state_foreground_color));
+    stateProgressBar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
+
+    stateProgressBar.setStateNumberForegroundColor(ContextCompat.getColor(this, android.R.color.white));
+    stateProgressBar.setStateNumberBackgroundColor(ContextCompat.getColor(this, android.R.color.background_dark));
+
+    stateProgressBar.setStateSize(40f);
+    stateProgressBar.setStateNumberTextSize(20f);
+    stateProgressBar.setStateLineThickness(10f);
+
+    stateProgressBar.enableAnimationToCurrentState(true);
+
+    stateProgressBar.setDescriptionTopSpaceIncrementer(10f);
+    stateProgressBar.setStateDescriptionSize(18f);
+
+    stateProgressBar.setCurrentStateDescriptionColor(ContextCompat.getColor(this, R.color.description_foreground_color));
+    stateProgressBar.setStateDescriptionColor(ContextCompat.getColor(this,  R.color.description_background_color));
