@@ -141,9 +141,9 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
 
 
-### EXTRA DEMOS(With codes)
+### EXTRA DEMOS(WITH CODES)
 
- A Two-State StateProgressBar
+ - A Two-State StateProgressBar
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/two_state_spb.png)
 
@@ -157,7 +157,7 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 ```
 
 
- A Three-State StateProgressBar
+ - A Three-State StateProgressBar
 
   ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/three_state_spb.png)
 
