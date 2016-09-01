@@ -279,11 +279,11 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
--  Change Dimensions (State,State Number ,State Line and State Description sizes)
+- Change Dimensions (State,State Number ,State Line and State Description sizes)
 
- ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
+![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
 
- ```
+```
 <com.kofigyan.stateprogressbar.StateProgressBar
  android:layout_width="wrap_content"
  android:layout_height="wrap_content"
