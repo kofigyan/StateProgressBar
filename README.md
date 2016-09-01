@@ -277,7 +277,8 @@ protected void onCreate(Bundle savedInstanceState) {
  app:spb_stateTextSize="15sp" />
 
 ```
-- Change Colors (State background ,foreground, state number background ,state number foreground, current state description, state description)
+
+- Change Colors
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_color_change.png)
 
