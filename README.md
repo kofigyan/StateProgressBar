@@ -214,7 +214,7 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
   ```
 
-   - Animate to current state
+  - Animate To Current State
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/anim_to_current.gif)
 
