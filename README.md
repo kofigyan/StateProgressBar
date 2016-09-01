@@ -1,7 +1,7 @@
 # StateProgressBar
 StateProgressBar is an Android Library to realise the various states and transitions in a progressbar.
 
-![alt tag](https://github.com/kofigyan/StateProgressBar/blob/master/screenshots/final_preview.gif)
+![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/final_preview.gif)
 
 ## Quick Start
 
