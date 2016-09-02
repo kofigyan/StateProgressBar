@@ -5,7 +5,13 @@ StateProgressBar is an Android Library to realise the various states and transit
 
 ## Quick Start
 
-![Get it on Google Play](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/google-play-badge.png)
+Get a feel of how it works:
+
+<a href="https://play.google.com/store/apps/details?id=com.kofigyan.stateprogressbarsample">
+  <img alt="Get it on Google Play"
+       src="https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/google-play-badge.png" />
+</a>
+
 
 Add the following dependency to your build.gradle :
 ```
