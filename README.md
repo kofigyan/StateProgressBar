@@ -265,9 +265,9 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
-- Change Colors
+- Change Colors (State background ,foreground, state number background ,state number foreground, current state description, state description)
 
- ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_color_change.png)
 
  ```
  <com.kofigyan.stateprogressbar.StateProgressBar
