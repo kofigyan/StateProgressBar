@@ -5,7 +5,7 @@ StateProgressBar is an Android Library to realise the various states and transit
 
 ## Quick Start
 
-+[![Get it on Google Play](screenshots/google-play-badge.png)][1]
+![Get it on Google Play](screenshots/google-play-badge.png)
 
 Add the following dependency to your build.gradle :
 ```
