@@ -265,23 +265,6 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
-- Change Dimensions (State, State Number ,State Line and State Description sizes)
-
- ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
-
- ```
-<com.kofigyan.stateprogressbar.StateProgressBar
- android:layout_width="wrap_content"
- android:layout_height="wrap_content"
- app:spb_descriptionTopSpaceIncrementer="2dp"
- app:spb_stateDescriptionSize="20sp"
- app:spb_stateLineThickness="10dp"
- app:spb_stateSize="40dp"
- app:spb_stateTextSize="15sp" />
-
-```
-
-
 - Change Colors
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
@@ -301,3 +284,20 @@ protected void onCreate(Bundle savedInstanceState) {
     app:spb_checkStateCompleted="true"/>
 
     ```
+
+
+- Change Dimensions (State, State Number ,State Line and State Description sizes)
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
+
+ ```
+<com.kofigyan.stateprogressbar.StateProgressBar
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ app:spb_descriptionTopSpaceIncrementer="2dp"
+ app:spb_stateDescriptionSize="20sp"
+ app:spb_stateLineThickness="10dp"
+ app:spb_stateSize="40dp"
+ app:spb_stateTextSize="15sp" />
+
+```
