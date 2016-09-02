@@ -12,6 +12,7 @@ Get a feel of how it works:
        src="https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/google-play-badge.png" />
 </a>
 
+### Gradle
 
 Add the following dependency to your build.gradle :
 ```
