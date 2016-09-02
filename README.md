@@ -265,7 +265,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
-- Change Dimensions (State,State Number ,State Line and State Description sizes)
+- Change Dimensions (State, State Number ,State Line and State Description sizes)
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
 
@@ -280,6 +280,8 @@ protected void onCreate(Bundle savedInstanceState) {
  app:spb_stateTextSize="15sp" />
 
 ```
+
+
 - Change Colors
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
@@ -290,16 +292,12 @@ protected void onCreate(Bundle savedInstanceState) {
     android:layout_height="wrap_content"
     app:spb_currentStateNumber="three"
     app:spb_maxStateNumber="four"
-
     app:spb_stateBackgroundColor="#BDBDBD"
     app:spb_stateForegroundColor="#009688"
-
     app:spb_stateNumberBackgroundColor="#808080"
     app:spb_stateNumberForegroundColor="#eeeeee"
-
     app:spb_currentStateDescriptionColor="#009688"
     app:spb_stateDescriptionColor="#808080"
-
     app:spb_checkStateCompleted="true"/>
 
     ```
