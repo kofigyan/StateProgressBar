@@ -304,7 +304,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ##  Developer
 
     Kofi Gyan
-   [kofigyan2011@gmail.com](kofigyan2011@gmail.com)
+   [kofigyan2011@gmail.com][1]
 
 ##  License
 
