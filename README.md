@@ -300,6 +300,12 @@ protected void onCreate(Bundle savedInstanceState) {
  app:spb_stateSize="40dp"
  app:spb_stateTextSize="15sp" />
 ```
+
+##  Developer
+
+    Kofi Gyan
+    kofigyan2011@gmail.com
+
 ##  License
 
  Copyright 2016 Kofi Gyan.
