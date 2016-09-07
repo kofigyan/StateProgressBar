@@ -68,22 +68,22 @@ protected void onCreate(Bundle savedInstanceState) {
         spb_maxStateNumber  => Maximum state number. Must be one of the following constant values : one , two , three , four .
         Related method : setMaxStateNumber(StateNumber)
 
-        spb_stateBackgroundColor  => State background color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_stateBackgroundColor  => State background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setBackgroundColor(int)
 
-        spb_stateForegroundColor  => State foreground color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_stateForegroundColor  => State foreground color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setForegroundColor(int)
 
-        spb_stateNumberBackgroundColor => State number background color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_stateNumberBackgroundColor => State number background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setStateNumberBackgroundColor(int)
 
-        spb_stateNumberForegroundColor => State number foreground color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_stateNumberForegroundColor => State number foreground color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setStateNumberForegroundColor(int)
 
-        spb_currentStateDescriptionColor => Current state description color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_currentStateDescriptionColor => Current state description color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setCurrentStateDescriptionColor(int)
 
-        spb_stateDescriptionColor => State description color. May be a color value, in the form of "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        spb_stateDescriptionColor => State description color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setStateDescriptionColor(int)
 
         spb_stateSize => State size . Must be a dimension value with preferrable unit of dp eg. 25dp
