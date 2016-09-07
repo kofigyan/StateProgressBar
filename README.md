@@ -219,7 +219,7 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
   ```
 
-  - Animate To Current State
+  - Animate to Current State
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/anim_to_current.gif)
 
@@ -267,7 +267,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
-- Change Colors (State background ,foreground, state number background ,state number foreground, current state description, state description)
+- Change Colors (State Background , State Foreground, State Number Background ,State Number Foreground, Current State Description, State Description)
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_color_change.png)
 
