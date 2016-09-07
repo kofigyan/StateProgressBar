@@ -12,7 +12,7 @@ Get a feel of how it works:
        src="https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/google-play-badge.png" />
 </a>
 
-Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for further documentation.
+Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for detail documentation.
 
 ### Gradle
 
