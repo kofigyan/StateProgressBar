@@ -288,6 +288,32 @@ protected void onCreate(Bundle savedInstanceState) {
     ```
 
 
+-  Description Top Spacing
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/spb_description_top_spacing.png)
+
+ ```
+ <com.kofigyan.stateprogressbar.StateProgressBar
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:spb_descriptionTopSpaceIncrementer="5dp"/>
+
+
+         String[] descriptionData = {"Details", "Status", "Photo", "Confirm"};
+
+         @Override
+         protected void onCreate(Bundle savedInstanceState) {
+             super.onCreate(savedInstanceState);
+             setContentView(R.layout.your_layout);
+
+             StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
+             stateProgressBar.setStateDescriptionData(descriptionData);
+
+         }
+
+    ```
+
+
 - Change Dimensions (State, State Number ,State Line and State Description sizes)
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_dimension_change.png)
