@@ -1,5 +1,5 @@
 # StateProgressBar
-StateProgressBar is an Android library to realize the various states and transitions in a Progressbar.
+StateProgressBar is an Android library to realize the various states and transitions in a ProgressBar.
 
 ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/final_preview.gif)
 
