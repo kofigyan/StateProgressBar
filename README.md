@@ -1,5 +1,6 @@
 # StateProgressBar
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-StateProgressBar-green.svg?style=true)](https://android-arsenal.com/details/1/4883)
+
 StateProgressBar is an Android library to realize the various states and transitions in a ProgressBar.
 
 ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/final_preview.gif)
