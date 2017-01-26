@@ -5,11 +5,15 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Scroller;
+import android.widget.Toast;
 
 import com.kofigyan.stateprogressbar.utils.FontManager;
 
@@ -423,7 +427,7 @@ public class StateProgressBar extends View {
 
     public void enableAnimationToCurrentState(boolean animateToCurrentProgressState) {
         this.mAnimateToCurrentProgressState = animateToCurrentProgressState;
-        if (mAnimator == null)
+        if (mAnimateToCurrentProgressState && mAnimator == null)
             startAnimator();
 
         invalidate();
@@ -706,13 +710,25 @@ public class StateProgressBar extends View {
             mAnimStartXPos = mStartCenterX;
             mAnimEndXPos = mAnimStartXPos;
             mIsCurrentAnimStarted = true;
+            Toast.makeText(getContext(), "Start Again reached", Toast.LENGTH_LONG).show();
         }
-        if (mAnimEndXPos <= mEndCenterX) {
+
+        if (mAnimEndXPos < mStartCenterX || mStartCenterX > mEndCenterX) {
+            stopAnimation();
+            enableAnimationToCurrentState(false);
+            invalidate();
+        } else if (mAnimEndXPos <= mEndCenterX) {
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mAnimEndXPos, mCellHeight / 2, mForegroundPaint);
             mAnimStartXPos = mAnimEndXPos;
         } else {
 
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mEndCenterX, mCellHeight / 2, mForegroundPaint);
+            //  Toast.makeText(getContext() , "End reached" , Toast.LENGTH_LONG).show();
+
+            //JUST COMMENTED
+            stopAnimation();
+            enableAnimationToCurrentState(false);
+
         }
 
         mNextCellWidth = mCellWidth;
@@ -832,8 +848,11 @@ public class StateProgressBar extends View {
     }
 
 
+    // private boolean mRestartAnimation = false;
+
     private class Animator implements Runnable {
         private Scroller mScroller;
+        //JUST COMMENTED
         private boolean mRestartAnimation = false;
 
         public Animator() {
@@ -893,7 +912,8 @@ public class StateProgressBar extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        startAnimator();
+        if (mAnimateToCurrentProgressState)
+            startAnimator();
     }
 
 
@@ -911,17 +931,157 @@ public class StateProgressBar extends View {
         switch (visibility) {
             case View.VISIBLE:
 
-                startAnimator();
+                if (mAnimateToCurrentProgressState)
+                    startAnimator();
 
                 break;
 
             default:
 
-                startAnimator();
+                if (mAnimateToCurrentProgressState)
+                    startAnimator();
 
                 break;
         }
     }
 
+
+    /**
+     * @Override public Parcelable onSaveInstanceState() {
+     * //begin boilerplate code that allows parent classes to save state
+     * Parcelable superState = super.onSaveInstanceState();
+     * <p/>
+     * SavedState ss = new SavedState(superState);
+     * //end
+     * <p/>
+     * ss.mEndCenterX = this.mEndCenterX;
+     * <p/>
+     * ss.mStartCenterX = this.mStartCenterX;
+     * <p/>
+     * ss.mAnimEndXPos = this.mAnimEndXPos;
+     * <p/>
+     * ss.mIsCurrentAnimStarted = this.mIsCurrentAnimStarted;
+     * <p/>
+     * <p/>
+     * <p/>
+     * <p/>
+     * return ss;
+     * }
+     * @Override public void onRestoreInstanceState(Parcelable state) {
+     * //begin boilerplate code so parent classes can restore state
+     * if(!(state instanceof SavedState)) {
+     * super.onRestoreInstanceState(state);
+     * return;
+     * }
+     * <p/>
+     * SavedState ss = (SavedState)state;
+     * super.onRestoreInstanceState(ss.getSuperState());
+     * //end
+     * <p/>
+     * this.mEndCenterX = ss.mEndCenterX;
+     * this.mStartCenterX = ss.mStartCenterX;
+     * this.mAnimEndXPos = ss.mAnimEndXPos;
+     * this.mIsCurrentAnimStarted = ss.mIsCurrentAnimStarted;
+     * //  if (ss.mIsCurrentAnimStarted)
+     * // this.mIsCurrentAnimStarted = true;
+     * <p/>
+     * }
+     * <p/>
+     * <p/>
+     * static class SavedState extends BaseSavedState {
+     * float mEndCenterX;
+     * float mStartCenterX;
+     * float mAnimEndXPos;
+     * boolean mIsCurrentAnimStarted;
+     * <p/>
+     * <p/>
+     * SavedState(Parcelable superState) {
+     * super(superState);
+     * }
+     * <p/>
+     * private SavedState(Parcel in) {
+     * super(in);
+     * this.mEndCenterX = in.readFloat();
+     * this.mStartCenterX = in.readFloat();
+     * this.mAnimEndXPos = in.readFloat();
+     * this.mIsCurrentAnimStarted = (mAnimEndXPos >= mStartCenterX);
+     * <p/>
+     * }
+     * @Override public void writeToParcel(Parcel out, int flags) {
+     * super.writeToParcel(out, flags);
+     * //out.writeInt(this.mEndCenterX);
+     * out.writeFloat(this.mEndCenterX);
+     * out.writeFloat(this.mStartCenterX);
+     * out.writeFloat(this.mAnimEndXPos);
+     * //out.writeB
+     * }
+     * <p/>
+     * //required field that makes Parcelables from a Parcel
+     * public static final Parcelable.Creator<SavedState> CREATOR =
+     * new Parcelable.Creator<SavedState>() {
+     * public SavedState createFromParcel(Parcel in) {
+     * return new SavedState(in);
+     * }
+     * public SavedState[] newArray(int size) {
+     * return new SavedState[size];
+     * }
+     * };
+     * }
+     **/
+
+//}
+
+
+    // /**
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("superState", super.onSaveInstanceState());
+
+        bundle.putFloat("mEndCenterX", this.mEndCenterX); // ... save stuff
+
+        bundle.putFloat("mStartCenterX", this.mStartCenterX); // ... save stuff
+
+        bundle.putFloat("mAnimStartXPos", this.mAnimStartXPos); // ... save stuff
+
+        bundle.putFloat("mAnimEndXPos", this.mAnimEndXPos); // ... save stuff
+
+        bundle.putBoolean("mIsCurrentAnimStarted", this.mIsCurrentAnimStarted); // ... save stuff
+
+        //  bundle.putBoolean("mRestartAnimation", this.mRestartAnimation); // ... save stuff
+
+        bundle.putBoolean("mAnimateToCurrentProgressState", this.mAnimateToCurrentProgressState); // ... save stuff
+
+
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) // implicit null check
+        {
+            Bundle bundle = (Bundle) state;
+
+            this.mEndCenterX = bundle.getFloat("mEndCenterX"); // ... load stuff
+
+            this.mStartCenterX = bundle.getFloat("mStartCenterX"); // ... load stuff
+
+            this.mAnimStartXPos = bundle.getFloat("mAnimStartXPos"); // ... load stuff
+
+            this.mAnimEndXPos = bundle.getFloat("mAnimEndXPos"); // ... load stuff
+
+            this.mIsCurrentAnimStarted = bundle.getBoolean("mIsCurrentAnimStarted"); // ... load stuff
+
+            //   this.mRestartAnimation = bundle.getBoolean("mRestartAnimation"); // ... load stuff
+
+            this.mAnimateToCurrentProgressState = bundle.getBoolean("mAnimateToCurrentProgressState"); // ... load stuff
+
+
+            state = bundle.getParcelable("superState");
+        }
+        super.onRestoreInstanceState(state);
+    }
+
+    //**/
 
 }
