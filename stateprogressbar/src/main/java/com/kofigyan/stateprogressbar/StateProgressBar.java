@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -36,6 +38,21 @@ public class StateProgressBar extends View {
             return value;
         }
     }
+
+
+    private final static String END_CENTER_X_KEY = "mEndCenterX";
+
+    private final static String START_CENTER_X_KEY = "mStartCenterX";
+
+    private final static String ANIM_START_X_POS_KEY = "mAnimStartXPos";
+
+    private final static String ANIM_END_X_POS_KEY = "mAnimEndXPos";
+
+    private final static String IS_CURRENT_ANIM_STARTED_KEY = "mIsCurrentAnimStarted";
+
+    private final static String ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY = "mAnimateToCurrentProgressState";
+
+    private final static String SUPER_STATE_KEY = "superState";
 
 
     private ArrayList<String> mStateDescriptionData = new ArrayList<String>();
@@ -423,7 +440,8 @@ public class StateProgressBar extends View {
 
     public void enableAnimationToCurrentState(boolean animateToCurrentProgressState) {
         this.mAnimateToCurrentProgressState = animateToCurrentProgressState;
-        if (mAnimator == null)
+
+        if (mAnimateToCurrentProgressState && mAnimator == null)
             startAnimator();
 
         invalidate();
@@ -707,9 +725,15 @@ public class StateProgressBar extends View {
             mAnimEndXPos = mAnimStartXPos;
             mIsCurrentAnimStarted = true;
         }
-        if (mAnimEndXPos <= mEndCenterX) {
+
+        if (mAnimEndXPos < mStartCenterX || mStartCenterX > mEndCenterX) {
+            stopAnimation();
+            enableAnimationToCurrentState(false);
+            invalidate();
+        } else if (mAnimEndXPos <= mEndCenterX) {
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mAnimEndXPos, mCellHeight / 2, mForegroundPaint);
             mAnimStartXPos = mAnimEndXPos;
+
         } else {
 
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mEndCenterX, mCellHeight / 2, mForegroundPaint);
@@ -845,7 +869,6 @@ public class StateProgressBar extends View {
                 return;
 
             if (mRestartAnimation) {
-
                 mScroller.startScroll(0, (int) mStartCenterX, 0, (int) mEndCenterX, mAnimDuration);
 
                 mRestartAnimation = false;
@@ -861,6 +884,7 @@ public class StateProgressBar extends View {
                 post(this);
             } else {
                 stop();
+                enableAnimationToCurrentState(false);
             }
 
         }
@@ -921,6 +945,50 @@ public class StateProgressBar extends View {
 
                 break;
         }
+    }
+
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(SUPER_STATE_KEY, super.onSaveInstanceState());
+
+        bundle.putFloat(END_CENTER_X_KEY, this.mEndCenterX);
+
+        bundle.putFloat(START_CENTER_X_KEY, this.mStartCenterX);
+
+        bundle.putFloat(ANIM_START_X_POS_KEY, this.mAnimStartXPos);
+
+        bundle.putFloat(ANIM_END_X_POS_KEY, this.mAnimEndXPos);
+
+        bundle.putBoolean(IS_CURRENT_ANIM_STARTED_KEY, this.mIsCurrentAnimStarted);
+
+        bundle.putBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY, this.mAnimateToCurrentProgressState);
+
+
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+
+            this.mEndCenterX = bundle.getFloat(END_CENTER_X_KEY);
+
+            this.mStartCenterX = bundle.getFloat(START_CENTER_X_KEY);
+
+            this.mAnimStartXPos = bundle.getFloat(ANIM_START_X_POS_KEY);
+
+            this.mAnimEndXPos = bundle.getFloat(ANIM_END_X_POS_KEY);
+
+            this.mIsCurrentAnimStarted = bundle.getBoolean(IS_CURRENT_ANIM_STARTED_KEY);
+
+            this.mAnimateToCurrentProgressState = bundle.getBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY);
+
+            state = bundle.getParcelable(SUPER_STATE_KEY);
+        }
+        super.onRestoreInstanceState(state);
     }
 
 
