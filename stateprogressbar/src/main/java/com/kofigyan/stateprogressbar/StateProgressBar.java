@@ -634,7 +634,7 @@ public class StateProgressBar extends View {
         if (mStateDescriptionData.isEmpty())
             return (int) (2 * mStateRadius) + (int) (mSpacing);
         else
-            return (int) (2 * mStateRadius) + (int) (1.3 * mStateDescriptionSize) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer); // mStageHeight = mCellHeight + ( 2 * description Text Size)
+            return (int) (2 * mStateRadius) + (int) (1.3 * mStateDescriptionSize) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer);  // mStageHeight = mCellHeight + ( 2 * description Text Size)
     }
 
     private int getCellHeight() {
