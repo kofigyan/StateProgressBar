@@ -3,6 +3,7 @@ package com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils;
 
 import com.kofigyan.stateprogressbarsample.AllStatesCompletedActivity;
 import com.kofigyan.stateprogressbarsample.AnimationFourStatesActivity;
+import com.kofigyan.stateprogressbarsample.BasicFiveStatesActivity;
 import com.kofigyan.stateprogressbarsample.BasicFourStatesActivity;
 import com.kofigyan.stateprogressbarsample.BasicThreeStatesActivity;
 import com.kofigyan.stateprogressbarsample.BasicTwoStatesActivity;
@@ -19,7 +20,7 @@ import com.kofigyan.stateprogressbarsample.UsageDetailsActivity;
 
 public class Utils {
 
-    public static Class[] basicActivities = {BasicFourStatesActivity.class, BasicThreeStatesActivity.class, BasicTwoStatesActivity.class};
+    public static Class[] basicActivities = {BasicFiveStatesActivity.class,BasicFourStatesActivity.class, BasicThreeStatesActivity.class, BasicTwoStatesActivity.class};
     public static Class[] allActivities = {StatesListActivity.class, CheckFourStatesActivity.class, AllStatesCompletedActivity.class, AnimationFourStatesActivity.class, DescriptionFourStatesActivity.class, ChangingStatesSizeActivity.class, ColoringStatesActivity.class, UsageDetailsActivity.class};
 
 

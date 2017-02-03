@@ -41,6 +41,7 @@
             <enum name="two" value="2" />
             <enum name="three" value="3" />
             <enum name="four" value="4" />
+            <enum name="five" value="5" />
         </attr>
 
 
@@ -49,6 +50,7 @@
             <enum name="two" value="2" />
             <enum name="three" value="3" />
             <enum name="four" value="4" />
+            <enum name="five" value="5" />
         </attr>
 
     </declare-styleable>

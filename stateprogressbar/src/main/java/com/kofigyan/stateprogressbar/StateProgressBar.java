@@ -27,7 +27,7 @@ public class StateProgressBar extends View {
 
 
     public enum StateNumber {
-        ONE(1), TWO(2), THREE(3), FOUR(4);
+        ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
         private int value;
 
         private StateNumber(int value) {
@@ -38,6 +38,9 @@ public class StateProgressBar extends View {
             return value;
         }
     }
+
+    private final static int MIN_STATE_NUMBER = 1;
+    private final static int MAX_STATE_NUMBER = 5;
 
 
     private final static String END_CENTER_X_KEY = "mEndCenterX";
@@ -431,7 +434,7 @@ public class StateProgressBar extends View {
     private void updateCheckAllStatesValues(boolean enableAllStatesCompleted) {
         if (enableAllStatesCompleted) {
             this.mCheckStateCompleted = true;
-            this.mCurrentStateNumber = mMaxStateNumber = StateNumber.FOUR.getValue();
+            this.mCurrentStateNumber = mMaxStateNumber;
             mStateDescriptionPaint.setColor(mCurrentStateDescriptionPaint.getColor());
         } else
             mStateDescriptionPaint.setColor(mStateDescriptionPaint.getColor());
@@ -527,7 +530,7 @@ public class StateProgressBar extends View {
         mStateNumberTextSize = 0.0f;
         mStateDescriptionSize = 15f;
 
-        mMaxStateNumber = StateNumber.FOUR.getValue();
+        mMaxStateNumber = StateNumber.FIVE.getValue();
         mCurrentStateNumber = StateNumber.ONE.getValue();
 
         mSpacing = 4.0f;
@@ -687,7 +690,7 @@ public class StateProgressBar extends View {
 
 
     private void setAnimatorStartEndCenterX() {
-        if (mCurrentStateNumber > 1 && mCurrentStateNumber < 5) {
+        if (mCurrentStateNumber > MIN_STATE_NUMBER && mCurrentStateNumber < MAX_STATE_NUMBER + 1) {
             for (int i = 0; i < mCurrentStateNumber - 1; i++) {
                 if (i == 0)
                     mStartCenterX = mNextCellWidth - (mCellWidth / 2); //

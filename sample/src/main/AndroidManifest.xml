@@ -33,6 +33,8 @@
 
         <activity android:name=".AnimationFourStatesActivity" />
 
+        <activity android:name=".BasicFiveStatesActivity" />
+
         <activity android:name=".BasicFourStatesActivity" />
 
         <activity android:name=".BasicThreeStatesActivity" />

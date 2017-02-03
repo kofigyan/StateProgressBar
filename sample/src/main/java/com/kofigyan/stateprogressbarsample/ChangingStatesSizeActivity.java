@@ -10,7 +10,7 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
  */
 public class ChangingStatesSizeActivity extends Activity{
 
-    String[] descriptionData = {"Details" , "Status" , "Photo" , "Event" };
+    String[] descriptionData = {"Details" , "Status" , "Photo" , "Event" , "Promo" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
