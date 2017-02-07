@@ -701,6 +701,10 @@ public class StateProgressBar extends View {
                 mEndCenterX = mNextCellWidth - (mCellWidth / 2);
             }
         }
+        else { // necessary to fix the animation going back to the first stage
+            mStartCenterX = 0;
+            mEndCenterX = 0;
+        }
     }
 
 
