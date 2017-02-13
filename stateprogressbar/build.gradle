@@ -12,7 +12,7 @@ ext {
 
     siteUrl = 'https://github.com/nuuneoi/FBLikeAndroid'
 
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.0.3'
 
     developerId = 'kofigyan2011'
     developerName = 'Kofi Gyan'

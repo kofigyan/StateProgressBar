@@ -701,6 +701,8 @@ public class StateProgressBar extends View {
                 mEndCenterX = mNextCellWidth - (mCellWidth / 2);
             }
         }
+        else
+            resetStateAnimationData();
     }
 
 
@@ -796,6 +798,17 @@ public class StateProgressBar extends View {
 
     public List<String> getStateDescriptionData() {
         return mStateDescriptionData;
+    }
+
+    private void resetStateAnimationData() {
+        if (mStartCenterX > 0 || mStartCenterX < 0)
+            mStartCenterX = 0;
+        if (mEndCenterX > 0 || mEndCenterX < 0)
+            mEndCenterX = 0;
+        if (mAnimEndXPos > 0 || mAnimEndXPos < 0)
+            mAnimEndXPos = 0;
+        if (mIsCurrentAnimStarted)
+            mIsCurrentAnimStarted = false;
     }
 
 
