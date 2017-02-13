@@ -700,8 +700,7 @@ public class StateProgressBar extends View {
                 mNextCellWidth += mCellWidth;
                 mEndCenterX = mNextCellWidth - (mCellWidth / 2);
             }
-        }
-        else
+        } else
             resetStateAnimationData();
     }
 
