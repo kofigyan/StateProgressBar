@@ -93,11 +93,6 @@ public class StateProgressBar extends View {
     private float mEndCenterX;
 
 
-    /**
-     * width of screen
-     */
-    private int mStageWidth;
-
     private int mMaxStateNumber;
     private int mCurrentStateNumber;
 
@@ -591,13 +586,11 @@ public class StateProgressBar extends View {
     }
 
 
-    private void drawCircles(Canvas canvas, Paint paint, int noOfCircles) {
-        for (int i = 0; i < noOfCircles; i++) {
-            canvas.drawCircle(mNextCellWidth - (mCellWidth / 2), mCellHeight / 2, mStateRadius, paint);
-            mNextCellWidth += mCellWidth;
+    private void drawCircles(Canvas canvas, Paint paint, int endIndex, int startIndex) {
+        for (int i = startIndex; i < endIndex; i++) {
+            canvas.drawCircle(mCellWidth*(i+1) - (mCellWidth / 2), mCellHeight / 2, mStateRadius, paint);
         }
 
-        mNextCellWidth = mCellWidth;
     }
 
 
@@ -605,15 +598,14 @@ public class StateProgressBar extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        mStageWidth = getWidth();
-        mCellWidth = mStageWidth / mMaxStateNumber;
+        mCellWidth = getWidth() / mMaxStateNumber;
         mNextCellWidth = mCellWidth;
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+        //super.onDraw(canvas);
 
         drawState(canvas);
     }
@@ -647,21 +639,22 @@ public class StateProgressBar extends View {
 
     private void drawState(Canvas canvas) {
 
-        drawLines(canvas, mBackgroundPaint, mMaxStateNumber);
-        drawCircles(canvas, mBackgroundPaint, mMaxStateNumber);
-        drawCircles(canvas, mForegroundPaint, mCurrentStateNumber);
-        drawLines(canvas, mForegroundPaint, mCurrentStateNumber - 1);
-
         setAnimatorStartEndCenterX();
 
         drawCurrentStateJoiningLine(canvas);
+
+        drawLines(canvas, mBackgroundPaint, mCurrentStateNumber - 1, mMaxStateNumber);
+        drawCircles(canvas, mBackgroundPaint, mMaxStateNumber, mCurrentStateNumber);
+        drawCircles(canvas, mForegroundPaint, mCurrentStateNumber, 0);
+        drawLines(canvas, mForegroundPaint, 0, mCurrentStateNumber - 1);
+
         drawStateNumberText(canvas, mMaxStateNumber);
         drawStateDescriptionText(canvas);
 
     }
 
 
-    private void drawLines(Canvas canvas, Paint paint, int noOfLines) {
+    private void drawLines(Canvas canvas, Paint paint, int startIndex, int endIndex) {
 
         float startCenterX;
         float endCenterX;
@@ -669,22 +662,19 @@ public class StateProgressBar extends View {
         float startX;
         float stopX;
 
-        startCenterX = mNextCellWidth - (mCellWidth / 2);
+        if(endIndex > startIndex) {
 
-        for (int i = 0; i < noOfLines - 1; i++) {
+            startCenterX = mCellWidth/2 + mCellWidth*startIndex;
 
-            mNextCellWidth += mCellWidth;
-            endCenterX = mNextCellWidth - (mCellWidth / 2);
+
+            endCenterX = mCellWidth *endIndex - (mCellWidth / 2);
 
             startX = startCenterX + (mStateRadius * 0.75f);
             stopX = endCenterX - (mStateRadius * 0.75f);
 
             canvas.drawLine(startX, mCellHeight / 2, stopX, mCellHeight / 2, paint);
 
-            startCenterX = endCenterX;
         }
-
-        mNextCellWidth = mCellWidth;
 
     }
 
@@ -700,8 +690,7 @@ public class StateProgressBar extends View {
                 mNextCellWidth += mCellWidth;
                 mEndCenterX = mNextCellWidth - (mCellWidth / 2);
             }
-        } else
-            resetStateAnimationData();
+        }
     }
 
 
@@ -736,6 +725,7 @@ public class StateProgressBar extends View {
             invalidate();
         } else if (mAnimEndXPos <= mEndCenterX) {
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mAnimEndXPos, mCellHeight / 2, mForegroundPaint);
+            canvas.drawLine(mAnimEndXPos, mCellHeight / 2, mEndCenterX, mCellHeight / 2, mBackgroundPaint);
             mAnimStartXPos = mAnimEndXPos;
 
         } else {
@@ -744,6 +734,7 @@ public class StateProgressBar extends View {
         }
 
         mNextCellWidth = mCellWidth;
+
     }
 
 
@@ -799,17 +790,6 @@ public class StateProgressBar extends View {
         return mStateDescriptionData;
     }
 
-    private void resetStateAnimationData() {
-        if (mStartCenterX > 0 || mStartCenterX < 0)
-            mStartCenterX = 0;
-        if (mEndCenterX > 0 || mEndCenterX < 0)
-            mEndCenterX = 0;
-        if (mAnimEndXPos > 0 || mAnimEndXPos < 0)
-            mAnimEndXPos = 0;
-        if (mIsCurrentAnimStarted)
-            mIsCurrentAnimStarted = false;
-    }
-
 
     private void drawStateNumberText(Canvas canvas, int noOfCircles) {
 
@@ -821,7 +801,7 @@ public class StateProgressBar extends View {
         for (int i = 0; i < noOfCircles; i++) {
 
             innerPaintType = selectPaintType(mCurrentStateNumber, i, mCheckStateCompleted);
-            xPos = (int) (mNextCellWidth - (mCellWidth / 2));
+            xPos = (int) (mCellWidth * (i + 1) - (mCellWidth / 2));
             yPos = (int) ((mCellHeight / 2) - ((innerPaintType.descent() + innerPaintType.ascent()) / 2));
 
             isChecked = isCheckIconUsed(mCurrentStateNumber, i);
@@ -831,10 +811,8 @@ public class StateProgressBar extends View {
             else
                 canvas.drawText(String.valueOf(i + 1), xPos, yPos, innerPaintType);
 
-            mNextCellWidth += mCellWidth;
         }
 
-        mNextCellWidth = mCellWidth;
     }
 
 
@@ -947,19 +925,9 @@ public class StateProgressBar extends View {
     @Override
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
-        switch (visibility) {
-            case View.VISIBLE:
 
-                startAnimator();
+        startAnimator();
 
-                break;
-
-            default:
-
-                startAnimator();
-
-                break;
-        }
     }
 
 
