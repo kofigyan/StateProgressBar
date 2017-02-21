@@ -70,6 +70,7 @@ public class StateProgressBar extends View {
     /**
      * width of one cell = stageWidth/noOfStates
      */
+
     private float mCellWidth;
 
 
