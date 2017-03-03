@@ -39,27 +39,18 @@ public class StateProgressBar extends View {
         }
     }
 
-    private final static int MIN_STATE_NUMBER = 1;
-    private final static int MAX_STATE_NUMBER = 5;
+    private static final int MIN_STATE_NUMBER = 1;
+    private static final int MAX_STATE_NUMBER = 5;
 
-
-    private final static String END_CENTER_X_KEY = "mEndCenterX";
-
-    private final static String START_CENTER_X_KEY = "mStartCenterX";
-
-    private final static String ANIM_START_X_POS_KEY = "mAnimStartXPos";
-
-    private final static String ANIM_END_X_POS_KEY = "mAnimEndXPos";
-
-    private final static String IS_CURRENT_ANIM_STARTED_KEY = "mIsCurrentAnimStarted";
-
-    private final static String ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY = "mAnimateToCurrentProgressState";
-
-    private final static String SUPER_STATE_KEY = "superState";
-
+    private static final String END_CENTER_X_KEY = "mEndCenterX";
+    private static final String START_CENTER_X_KEY = "mStartCenterX";
+    private static final String ANIM_START_X_POS_KEY = "mAnimStartXPos";
+    private static final String ANIM_END_X_POS_KEY = "mAnimEndXPos";
+    private static final String IS_CURRENT_ANIM_STARTED_KEY = "mIsCurrentAnimStarted";
+    private static final String ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY = "mAnimateToCurrentProgressState";
+    private static final String SUPER_STATE_KEY = "superState";
 
     private ArrayList<String> mStateDescriptionData = new ArrayList<String>();
-
 
     private float mStateRadius;
     private float mStateSize;
@@ -72,9 +63,7 @@ public class StateProgressBar extends View {
      */
     private float mCellWidth;
 
-
     private float mCellHeight;
-
 
     /**
      * next cell(state) from previous cell
@@ -86,17 +75,10 @@ public class StateProgressBar extends View {
      */
     private float mStartCenterX;
 
-
     /**
      * center of last cell(state)
      */
     private float mEndCenterX;
-
-
-    /**
-     * width of screen
-     */
-    private int mStageWidth;
 
     private int mMaxStateNumber;
     private int mCurrentStateNumber;
@@ -109,10 +91,8 @@ public class StateProgressBar extends View {
     private float mDescTopSpaceDecrementer;
     private float mDescTopSpaceIncrementer;
 
-
-    private final static float DEFAULT_TEXT_SIZE = 15f;
-    private final static float DEFAULT_STATE_SIZE = 25f;
-
+    private static final float DEFAULT_TEXT_SIZE = 15f;
+    private static final float DEFAULT_STATE_SIZE = 25f;
 
     /**
      * Paints for drawing
@@ -125,7 +105,6 @@ public class StateProgressBar extends View {
     private Paint mCurrentStateDescriptionPaint;
     private Paint mStateDescriptionPaint;
 
-
     private int mBackgroundColor;
     private int mForegroundColor;
     private int mStateNumberBackgroundColor;
@@ -133,19 +112,16 @@ public class StateProgressBar extends View {
     private int mCurrentStateDescriptionColor;
     private int mStateDescriptionColor;
 
-
     /**
      * animate inner line to current progress state
      */
     private Animator mAnimator;
-
 
     /**
      * tracks progress of line animator
      */
     private float mAnimStartXPos;
     private float mAnimEndXPos;
-
 
     private boolean mIsCurrentAnimStarted;
 
@@ -156,19 +132,15 @@ public class StateProgressBar extends View {
     private boolean mIsStateSizeSet;
     private boolean mIsStateTextSizeSet;
 
-
     private Typeface mCheckFont;
-
 
     public StateProgressBar(Context context) {
         this(context, null, 0);
     }
 
-
     public StateProgressBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
 
     public StateProgressBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -177,7 +149,6 @@ public class StateProgressBar extends View {
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
 
     }
-
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
 
@@ -222,8 +193,9 @@ public class StateProgressBar extends View {
             mAnimStartDelay = a.getInteger(R.styleable.StateProgressBar_spb_animationStartDelay, mAnimStartDelay);
 
 
-            if (!mAnimateToCurrentProgressState)
+            if (!mAnimateToCurrentProgressState) {
                 stopAnimation();
+            }
 
             resolveStateSize();
             validateLineThickness(mStateLineThickness);
@@ -237,37 +209,32 @@ public class StateProgressBar extends View {
 
     }
 
-
     private void initializePainters() {
 
         Typeface typefaceBold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
 
         mBackgroundPaint = setPaintAttributes(mStateLineThickness, mBackgroundColor);
-
         mForegroundPaint = setPaintAttributes(mStateLineThickness, mForegroundColor);
-
         mStateNumberForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, typefaceBold);
-
         mStateCheckedForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, mCheckFont);
-
         mStateNumberBackgroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberBackgroundColor, typefaceBold);
-
         mCurrentStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mCurrentStateDescriptionColor, typefaceBold);
-
         mStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mStateDescriptionColor, typefaceBold);
 
     }
 
-
     private void validateLineThickness(float lineThickness) {
         float halvedStateSize = mStateSize / 2;
-        if (lineThickness > halvedStateSize)
+
+        if (lineThickness > halvedStateSize) {
             mStateLineThickness = halvedStateSize;
+        }
     }
 
     private void validateStateSize() {
-        if (mStateSize <= mStateNumberTextSize)
+        if (mStateSize <= mStateNumberTextSize) {
             mStateSize = mStateNumberTextSize + mStateNumberTextSize / 2;
+        }
     }
 
     public void setBackgroundColor(int backgroundColor) {
@@ -280,7 +247,6 @@ public class StateProgressBar extends View {
         return mBackgroundColor;
     }
 
-
     public void setForegroundColor(int foregroundColor) {
         mForegroundColor = foregroundColor;
         mForegroundPaint.setColor(mForegroundColor);
@@ -292,7 +258,7 @@ public class StateProgressBar extends View {
     }
 
     public void setStateLineThickness(float stateLineThickness) {
-        this.mStateLineThickness = convertDpToPixel(stateLineThickness);
+        mStateLineThickness = convertDpToPixel(stateLineThickness);
         validateLineThickness(mStateLineThickness);
         mBackgroundPaint.setStrokeWidth(mStateLineThickness);
         mForegroundPaint.setStrokeWidth(mStateLineThickness);
@@ -303,18 +269,15 @@ public class StateProgressBar extends View {
         return mStateLineThickness;
     }
 
-
     public void setStateNumberBackgroundColor(int stateNumberBackgroundColor) {
         mStateNumberBackgroundColor = stateNumberBackgroundColor;
         mStateNumberBackgroundPaint.setColor(mStateNumberBackgroundColor);
         invalidate();
     }
 
-
     public int getStateNumberBackgroundColor() {
         return mStateNumberBackgroundColor;
     }
-
 
     public void setStateNumberForegroundColor(int stateNumberForegroundColor) {
         mStateNumberForegroundColor = stateNumberForegroundColor;
@@ -323,13 +286,12 @@ public class StateProgressBar extends View {
         invalidate();
     }
 
-
     public int getStateNumberForegroundColor() {
         return mStateNumberForegroundColor;
     }
 
     public void setStateDescriptionColor(int stateDescriptionColor) {
-        this.mStateDescriptionColor = stateDescriptionColor;
+        mStateDescriptionColor = stateDescriptionColor;
         mStateDescriptionPaint.setColor(mStateDescriptionColor);
         invalidate();
     }
@@ -339,20 +301,18 @@ public class StateProgressBar extends View {
     }
 
     public void setCurrentStateDescriptionColor(int currentStateDescriptionColor) {
-        this.mCurrentStateDescriptionColor = currentStateDescriptionColor;
+        mCurrentStateDescriptionColor = currentStateDescriptionColor;
         mCurrentStateDescriptionPaint.setColor(mCurrentStateDescriptionColor);
         invalidate();
     }
-
 
     public int getCurrentStateDescriptionColor() {
         return mCurrentStateDescriptionColor;
     }
 
-
     public void setCurrentStateNumber(StateNumber currentStateNumber) {
         validateStateNumber(currentStateNumber.getValue());
-        this.mCurrentStateNumber = currentStateNumber.getValue();
+        mCurrentStateNumber = currentStateNumber.getValue();
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
     }
@@ -363,7 +323,7 @@ public class StateProgressBar extends View {
 
 
     public void setMaxStateNumber(StateNumber maximumState) {
-        this.mMaxStateNumber = maximumState.getValue();
+        mMaxStateNumber = maximumState.getValue();
         validateStateNumber(mCurrentStateNumber);
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
@@ -375,7 +335,7 @@ public class StateProgressBar extends View {
 
 
     public void setStateSize(float stateSize) {
-        this.mStateSize = convertDpToPixel(stateSize);
+        mStateSize = convertDpToPixel(stateSize);
         mIsStateSizeSet = true;
         resetStateSizeValues();
     }
@@ -385,7 +345,7 @@ public class StateProgressBar extends View {
     }
 
     public void setStateNumberTextSize(float textSize) {
-        this.mStateNumberTextSize = convertSpToPixel(textSize);
+        mStateNumberTextSize = convertSpToPixel(textSize);
         mIsStateTextSizeSet = true;
         resetStateSizeValues();
     }
@@ -399,7 +359,7 @@ public class StateProgressBar extends View {
         mStateNumberBackgroundPaint.setTextSize(mStateNumberTextSize);
         mStateCheckedForegroundPaint.setTextSize(mStateNumberTextSize);
 
-        this.mStateRadius = mStateSize / 2;
+        mStateRadius = mStateSize / 2;
 
         validateLineThickness(mStateLineThickness);
 
@@ -409,7 +369,7 @@ public class StateProgressBar extends View {
     }
 
     public void setStateDescriptionSize(float stateDescriptionSize) {
-        this.mStateDescriptionSize = convertSpToPixel(stateDescriptionSize);
+        mStateDescriptionSize = convertSpToPixel(stateDescriptionSize);
         mCurrentStateDescriptionPaint.setTextSize(mStateDescriptionSize);
         mStateDescriptionPaint.setTextSize(mStateDescriptionSize);
         requestLayout();
@@ -420,50 +380,53 @@ public class StateProgressBar extends View {
     }
 
     public void checkStateCompleted(boolean checkStateCompleted) {
-        this.mCheckStateCompleted = checkStateCompleted;
+        mCheckStateCompleted = checkStateCompleted;
         invalidate();
     }
 
 
     public void setAllStatesCompleted(boolean enableAllStatesCompleted) {
-        this.mEnableAllStatesCompleted = enableAllStatesCompleted;
+        mEnableAllStatesCompleted = enableAllStatesCompleted;
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
     }
 
     private void updateCheckAllStatesValues(boolean enableAllStatesCompleted) {
         if (enableAllStatesCompleted) {
-            this.mCheckStateCompleted = true;
-            this.mCurrentStateNumber = mMaxStateNumber;
+            mCheckStateCompleted = true;
+            mCurrentStateNumber = mMaxStateNumber;
             mStateDescriptionPaint.setColor(mCurrentStateDescriptionPaint.getColor());
-        } else
+        } else {
             mStateDescriptionPaint.setColor(mStateDescriptionPaint.getColor());
+        }
     }
 
 
     public void enableAnimationToCurrentState(boolean animateToCurrentProgressState) {
         this.mAnimateToCurrentProgressState = animateToCurrentProgressState;
 
-        if (mAnimateToCurrentProgressState && mAnimator == null)
+        if (mAnimateToCurrentProgressState && mAnimator == null) {
             startAnimator();
+        }
 
         invalidate();
     }
 
     private void validateStateNumber(int stateNumber) {
-        if (stateNumber > mMaxStateNumber)
+        if (stateNumber > mMaxStateNumber) {
             throw new IllegalStateException("State number (" + stateNumber + ") cannot be greater than total number of states " + mMaxStateNumber);
+        }
     }
 
 
     public void setDescriptionTopSpaceIncrementer(float spaceIncrementer) {
-        this.mDescTopSpaceIncrementer = spaceIncrementer;
+        mDescTopSpaceIncrementer = spaceIncrementer;
         requestLayout();
     }
 
 
     public void setDescriptionTopSpaceDecrementer(float spaceDecrementer) {
-        this.mDescTopSpaceDecrementer = spaceDecrementer;
+        mDescTopSpaceDecrementer = spaceDecrementer;
         requestLayout();
     }
 
@@ -477,7 +440,7 @@ public class StateProgressBar extends View {
 
 
     public void setAnimationDuration(int animDuration) {
-        this.mAnimDuration = animDuration;
+        mAnimDuration = animDuration;
         invalidate();
     }
 
@@ -486,7 +449,7 @@ public class StateProgressBar extends View {
     }
 
     public void setAnimationStartDelay(int animStartDelay) {
-        this.mAnimStartDelay = animStartDelay;
+        mAnimStartDelay = animStartDelay;
         invalidate();
     }
 
@@ -494,13 +457,11 @@ public class StateProgressBar extends View {
         return mAnimStartDelay;
     }
 
-
     private Paint setPaintAttributes(float strokeWidth, int color) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(strokeWidth);
         paint.setColor(color);
-
         return paint;
     }
 
@@ -511,10 +472,8 @@ public class StateProgressBar extends View {
         paint.setTextSize(textSize);
         paint.setColor(color);
         paint.setTypeface(typeface);
-
         return paint;
     }
-
 
     private void initStateProgressBar(Context context) {
 
@@ -572,7 +531,6 @@ public class StateProgressBar extends View {
 
     }
 
-
     private void resolveStateSize(boolean isStateSizeSet, boolean isStateTextSizeSet) {
         if (!isStateSizeSet && !isStateTextSizeSet) {
             mStateSize = convertDpToPixel(DEFAULT_STATE_SIZE);
@@ -590,26 +548,19 @@ public class StateProgressBar extends View {
 
     }
 
-
-    private void drawCircles(Canvas canvas, Paint paint, int noOfCircles) {
-        for (int i = 0; i < noOfCircles; i++) {
-            canvas.drawCircle(mNextCellWidth - (mCellWidth / 2), mCellHeight / 2, mStateRadius, paint);
-            mNextCellWidth += mCellWidth;
+    private void drawCircles(Canvas canvas, Paint paint, int startIndex, int endIndex) {
+        for (int i = startIndex; i < endIndex; i++) {
+            canvas.drawCircle(mCellWidth * (i + 1) - (mCellWidth / 2), mCellHeight / 2, mStateRadius, paint);
         }
-
-        mNextCellWidth = mCellWidth;
     }
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        mStageWidth = getWidth();
-        mCellWidth = mStageWidth / mMaxStateNumber;
+        mCellWidth = getWidth() / mMaxStateNumber;
         mNextCellWidth = mCellWidth;
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -617,7 +568,6 @@ public class StateProgressBar extends View {
 
         drawState(canvas);
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -634,34 +584,36 @@ public class StateProgressBar extends View {
 
 
     private int getDesiredHeight() {
-        if (mStateDescriptionData.isEmpty())
+        if (mStateDescriptionData.isEmpty()) {
             return (int) (2 * mStateRadius) + (int) (mSpacing);
-        else
+        } else {
             return (int) (2 * mStateRadius) + (int) (1.3 * mStateDescriptionSize) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer);  // mStageHeight = mCellHeight + ( 2 * description Text Size)
+        }
     }
 
     private int getCellHeight() {
         return (int) (2 * mStateRadius) + (int) (mSpacing);
     }
 
-
     private void drawState(Canvas canvas) {
-
-        drawLines(canvas, mBackgroundPaint, mMaxStateNumber);
-        drawCircles(canvas, mBackgroundPaint, mMaxStateNumber);
-        drawCircles(canvas, mForegroundPaint, mCurrentStateNumber);
-        drawLines(canvas, mForegroundPaint, mCurrentStateNumber - 1);
 
         setAnimatorStartEndCenterX();
 
         drawCurrentStateJoiningLine(canvas);
+
+        drawLines(canvas, mBackgroundPaint, mCurrentStateNumber - 1, mMaxStateNumber);
+
+        drawCircles(canvas, mBackgroundPaint, mCurrentStateNumber, mMaxStateNumber);
+        drawCircles(canvas, mForegroundPaint, 0, mCurrentStateNumber);
+
+        drawLines(canvas, mForegroundPaint, 0, mCurrentStateNumber - 1);
+
         drawStateNumberText(canvas, mMaxStateNumber);
         drawStateDescriptionText(canvas);
 
     }
 
-
-    private void drawLines(Canvas canvas, Paint paint, int noOfLines) {
+    private void drawLines(Canvas canvas, Paint paint, int startIndex, int endIndex) {
 
         float startCenterX;
         float endCenterX;
@@ -669,22 +621,19 @@ public class StateProgressBar extends View {
         float startX;
         float stopX;
 
-        startCenterX = mNextCellWidth - (mCellWidth / 2);
 
-        for (int i = 0; i < noOfLines - 1; i++) {
+        if (endIndex > startIndex) {
 
-            mNextCellWidth += mCellWidth;
-            endCenterX = mNextCellWidth - (mCellWidth / 2);
+            startCenterX = mCellWidth / 2 + mCellWidth * startIndex;
+
+            endCenterX = mCellWidth * endIndex - (mCellWidth / 2);
 
             startX = startCenterX + (mStateRadius * 0.75f);
             stopX = endCenterX - (mStateRadius * 0.75f);
 
             canvas.drawLine(startX, mCellHeight / 2, stopX, mCellHeight / 2, paint);
 
-            startCenterX = endCenterX;
         }
-
-        mNextCellWidth = mCellWidth;
 
     }
 
@@ -692,26 +641,28 @@ public class StateProgressBar extends View {
     private void setAnimatorStartEndCenterX() {
         if (mCurrentStateNumber > MIN_STATE_NUMBER && mCurrentStateNumber < MAX_STATE_NUMBER + 1) {
             for (int i = 0; i < mCurrentStateNumber - 1; i++) {
-                if (i == 0)
-                    mStartCenterX = mNextCellWidth - (mCellWidth / 2); //
-                else
+
+                if (i == 0) {
+                    mStartCenterX = mNextCellWidth - (mCellWidth / 2);
+                } else {
                     mStartCenterX = mEndCenterX;
+                }
 
                 mNextCellWidth += mCellWidth;
                 mEndCenterX = mNextCellWidth - (mCellWidth / 2);
             }
-        } else
+        } else {
             resetStateAnimationData();
+        }
     }
-
 
     private void drawCurrentStateJoiningLine(Canvas canvas) {
-        if (mAnimateToCurrentProgressState)
+        if (mAnimateToCurrentProgressState) {
             animateToCurrentState(canvas);
-        else
+        } else {
             drawLineToCurrentState(canvas);
+        }
     }
-
 
     private void drawLineToCurrentState(Canvas canvas) {
 
@@ -721,7 +672,6 @@ public class StateProgressBar extends View {
 
         stopAnimation();
     }
-
 
     private void animateToCurrentState(Canvas canvas) {
         if (!mIsCurrentAnimStarted) {
@@ -736,6 +686,9 @@ public class StateProgressBar extends View {
             invalidate();
         } else if (mAnimEndXPos <= mEndCenterX) {
             canvas.drawLine(mStartCenterX, mCellHeight / 2, mAnimEndXPos, mCellHeight / 2, mForegroundPaint);
+
+            canvas.drawLine(mAnimEndXPos, mCellHeight / 2, mEndCenterX, mCellHeight / 2, mBackgroundPaint);
+
             mAnimStartXPos = mAnimEndXPos;
 
         } else {
@@ -745,7 +698,6 @@ public class StateProgressBar extends View {
 
         mNextCellWidth = mCellWidth;
     }
-
 
     private void drawStateDescriptionText(Canvas canvas) {
 
@@ -772,25 +724,25 @@ public class StateProgressBar extends View {
         mNextCellWidth = mCellWidth;
     }
 
-
     private Paint selectDescriptionPaint(int currentState, int statePosition) {
-        if (statePosition + 1 == currentState)
+        if (statePosition + 1 == currentState) {
             return mCurrentStateDescriptionPaint;
-        else
+        } else {
             return mStateDescriptionPaint;
+        }
     }
-
 
     public void setStateDescriptionData(String[] stateDescriptionData) {
 
-        for (String value : stateDescriptionData)
+        for (String value : stateDescriptionData) {
             mStateDescriptionData.add(value);
+        }
 
         requestLayout();
     }
 
     public void setStateDescriptionData(ArrayList<String> stateDescriptionData) {
-        this.mStateDescriptionData = stateDescriptionData;
+        mStateDescriptionData = stateDescriptionData;
 
         requestLayout();
     }
@@ -800,14 +752,10 @@ public class StateProgressBar extends View {
     }
 
     private void resetStateAnimationData() {
-        if (mStartCenterX > 0 || mStartCenterX < 0)
-            mStartCenterX = 0;
-        if (mEndCenterX > 0 || mEndCenterX < 0)
-            mEndCenterX = 0;
-        if (mAnimEndXPos > 0 || mAnimEndXPos < 0)
-            mAnimEndXPos = 0;
-        if (mIsCurrentAnimStarted)
-            mIsCurrentAnimStarted = false;
+        if (mStartCenterX > 0 || mStartCenterX < 0) mStartCenterX = 0;
+        if (mEndCenterX > 0 || mEndCenterX < 0) mEndCenterX = 0;
+        if (mAnimEndXPos > 0 || mAnimEndXPos < 0) mAnimEndXPos = 0;
+        if (mIsCurrentAnimStarted) mIsCurrentAnimStarted = false;
     }
 
 
@@ -821,42 +769,41 @@ public class StateProgressBar extends View {
         for (int i = 0; i < noOfCircles; i++) {
 
             innerPaintType = selectPaintType(mCurrentStateNumber, i, mCheckStateCompleted);
-            xPos = (int) (mNextCellWidth - (mCellWidth / 2));
+
+            xPos = (int) (mCellWidth * (i + 1) - (mCellWidth / 2));
+
             yPos = (int) ((mCellHeight / 2) - ((innerPaintType.descent() + innerPaintType.ascent()) / 2));
 
             isChecked = isCheckIconUsed(mCurrentStateNumber, i);
 
-            if (mCheckStateCompleted && isChecked)
+            if (mCheckStateCompleted && isChecked) {
                 canvas.drawText(getContext().getString(R.string.check_icon), xPos, yPos, innerPaintType);
-            else
+            } else {
                 canvas.drawText(String.valueOf(i + 1), xPos, yPos, innerPaintType);
-
-            mNextCellWidth += mCellWidth;
+            }
         }
 
-        mNextCellWidth = mCellWidth;
     }
 
 
     private Paint selectPaintType(int currentState, int statePosition, boolean checkStateCompleted) {
 
-        if ((mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 < currentState && checkStateCompleted))
+        if ((mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 < currentState && checkStateCompleted)) {
             return mStateCheckedForegroundPaint;
-
-        else if ((statePosition + 1 == currentState) || (statePosition + 1 < currentState && !checkStateCompleted))
+        } else if ((statePosition + 1 == currentState) || (statePosition + 1 < currentState && !checkStateCompleted)) {
             return mStateNumberForegroundPaint;
-
-        else
+        } else {
             return mStateNumberBackgroundPaint;
-
+        }
     }
 
 
     private boolean isCheckIconUsed(int currentState, int statePosition) {
-        if (mEnableAllStatesCompleted || statePosition + 1 < currentState)
+        if (mEnableAllStatesCompleted || statePosition + 1 < currentState) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
 
@@ -866,8 +813,9 @@ public class StateProgressBar extends View {
     }
 
     private void stopAnimation() {
-        if (mAnimator != null)
+        if (mAnimator != null) {
             mAnimator.stop();
+        }
     }
 
 
@@ -880,8 +828,7 @@ public class StateProgressBar extends View {
         }
 
         public void run() {
-            if (mAnimator != this)
-                return;
+            if (mAnimator != this) return;
 
             if (mRestartAnimation) {
                 mScroller.startScroll(0, (int) mStartCenterX, 0, (int) mEndCenterX, mAnimDuration);
@@ -989,17 +936,17 @@ public class StateProgressBar extends View {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
 
-            this.mEndCenterX = bundle.getFloat(END_CENTER_X_KEY);
+            mEndCenterX = bundle.getFloat(END_CENTER_X_KEY);
 
-            this.mStartCenterX = bundle.getFloat(START_CENTER_X_KEY);
+            mStartCenterX = bundle.getFloat(START_CENTER_X_KEY);
 
-            this.mAnimStartXPos = bundle.getFloat(ANIM_START_X_POS_KEY);
+            mAnimStartXPos = bundle.getFloat(ANIM_START_X_POS_KEY);
 
-            this.mAnimEndXPos = bundle.getFloat(ANIM_END_X_POS_KEY);
+            mAnimEndXPos = bundle.getFloat(ANIM_END_X_POS_KEY);
 
-            this.mIsCurrentAnimStarted = bundle.getBoolean(IS_CURRENT_ANIM_STARTED_KEY);
+            mIsCurrentAnimStarted = bundle.getBoolean(IS_CURRENT_ANIM_STARTED_KEY);
 
-            this.mAnimateToCurrentProgressState = bundle.getBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY);
+            mAnimateToCurrentProgressState = bundle.getBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY);
 
             state = bundle.getParcelable(SUPER_STATE_KEY);
         }
