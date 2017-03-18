@@ -13,21 +13,17 @@ import java.util.Map;
 
 public class FontManager {
 
-    private static final Map<String, Typeface> FONTS = new HashMap<String, Typeface>();
+    private static Typeface checkMarkTypeface;
 
-    public static final String ROOT = "fonts/",
-            FONTAWESOME = ROOT + "fontawesome-webfont.ttf";
+    private static final String FONTAWESOME = "fonts/fontawesome-webfont.ttf";
 
-    public static Typeface getTypeface(Context context, String fontName) {
+    public static Typeface getCheckMarkTypeface(Context context) {
 
-        Typeface typeface = FONTS.get(fontName);
-
-        if (typeface == null) {
-            typeface = Typeface.createFromAsset(context.getAssets(), fontName);
-            FONTS.put(fontName, typeface);
+        if (checkMarkTypeface == null) {
+            checkMarkTypeface = Typeface.createFromAsset(context.getAssets(), FONTAWESOME);
         }
 
-        return typeface;
+        return checkMarkTypeface;
     }
 
 }
