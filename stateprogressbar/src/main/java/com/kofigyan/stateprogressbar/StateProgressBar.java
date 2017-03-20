@@ -402,6 +402,8 @@ public class StateProgressBar extends View {
     }
 
 
+
+
     public void enableAnimationToCurrentState(boolean animateToCurrentProgressState) {
         this.mAnimateToCurrentProgressState = animateToCurrentProgressState;
 
@@ -409,7 +411,18 @@ public class StateProgressBar extends View {
             startAnimator();
         }
 
-        invalidate();
+        if (!mNoInvalidate) {
+            invalidate();
+        }
+
+    }
+
+
+    private boolean mNoInvalidate;
+
+    public void enableAnimationToCurrentState(boolean animateToCurrentProgressState, boolean noInvalidate) {
+        mNoInvalidate = noInvalidate;
+        enableAnimationToCurrentState(animateToCurrentProgressState);
     }
 
     private void validateStateNumber(int stateNumber) {
