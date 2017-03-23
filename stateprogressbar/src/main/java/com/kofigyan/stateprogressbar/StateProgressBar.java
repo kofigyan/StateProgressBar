@@ -680,6 +680,7 @@ public class StateProgressBar extends View {
         mNextCellWidth = mCellWidth;
     }
 
+
     private void drawStateDescriptionText(Canvas canvas) {
 
         int xPos;
