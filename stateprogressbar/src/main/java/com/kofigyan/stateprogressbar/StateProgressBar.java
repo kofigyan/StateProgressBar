@@ -16,6 +16,7 @@ import android.widget.Scroller;
 import com.kofigyan.stateprogressbar.utils.FontManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,7 +31,7 @@ public class StateProgressBar extends View {
         ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
         private int value;
 
-        private StateNumber(int value) {
+        StateNumber(int value) {
             this.value = value;
         }
 
@@ -50,7 +51,7 @@ public class StateProgressBar extends View {
     private static final String ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY = "mAnimateToCurrentProgressState";
     private static final String SUPER_STATE_KEY = "superState";
 
-    private ArrayList<String> mStateDescriptionData = new ArrayList<String>();
+    private ArrayList<String> mStateDescriptionData = new ArrayList<>();
 
     private float mStateRadius;
     private float mStateSize;
@@ -129,9 +130,6 @@ public class StateProgressBar extends View {
     private boolean mEnableAllStatesCompleted;
     private boolean mCheckStateCompleted;
 
-    private boolean mIsStateSizeSet;
-    private boolean mIsStateTextSizeSet;
-
     private Typeface mCheckFont;
 
     public StateProgressBar(Context context) {
@@ -160,7 +158,8 @@ public class StateProgressBar extends View {
         mStateDescriptionSize = convertSpToPixel(mStateDescriptionSize);
         mStateLineThickness = convertDpToPixel(mStateLineThickness);
         mSpacing = convertDpToPixel(mSpacing);
-        mCheckFont = FontManager.getTypeface(context, FontManager.FONTAWESOME);
+
+        mCheckFont = FontManager.getTypeface(context);
 
 
         if (attrs != null) {
@@ -336,7 +335,6 @@ public class StateProgressBar extends View {
 
     public void setStateSize(float stateSize) {
         mStateSize = convertDpToPixel(stateSize);
-        mIsStateSizeSet = true;
         resetStateSizeValues();
     }
 
@@ -346,14 +344,13 @@ public class StateProgressBar extends View {
 
     public void setStateNumberTextSize(float textSize) {
         mStateNumberTextSize = convertSpToPixel(textSize);
-        mIsStateTextSizeSet = true;
         resetStateSizeValues();
     }
 
 
     private void resetStateSizeValues() {
 
-        resolveStateSize(mIsStateSizeSet, mIsStateTextSizeSet);
+        resolveStateSize();
 
         mStateNumberForegroundPaint.setTextSize(mStateNumberTextSize);
         mStateNumberBackgroundPaint.setTextSize(mStateNumberTextSize);
@@ -402,8 +399,6 @@ public class StateProgressBar extends View {
     }
 
 
-
-
     public void enableAnimationToCurrentState(boolean animateToCurrentProgressState) {
         this.mAnimateToCurrentProgressState = animateToCurrentProgressState;
 
@@ -411,19 +406,10 @@ public class StateProgressBar extends View {
             startAnimator();
         }
 
-        if (!mNoInvalidate) {
-            invalidate();
-        }
+        invalidate();
 
     }
 
-
-    private boolean mNoInvalidate;
-
-    public void enableAnimationToCurrentState(boolean animateToCurrentProgressState, boolean noInvalidate) {
-        mNoInvalidate = noInvalidate;
-        enableAnimationToCurrentState(animateToCurrentProgressState);
-    }
 
     private void validateStateNumber(int stateNumber) {
         if (stateNumber > mMaxStateNumber) {
@@ -521,28 +507,9 @@ public class StateProgressBar extends View {
 
 
     private void resolveStateSize() {
-        if (mStateSize == 0 && mStateNumberTextSize == 0) {
-            mIsStateSizeSet = false;
-            mIsStateTextSizeSet = false;
-            resolveStateSize(mIsStateSizeSet, mIsStateTextSizeSet);
-
-        } else if (mStateSize != 0 && mStateNumberTextSize != 0) {
-            mIsStateSizeSet = true;
-            mIsStateTextSizeSet = true;
-            resolveStateSize(mIsStateSizeSet, mIsStateTextSizeSet);
-
-        } else if (mStateSize == 0 && mStateNumberTextSize != 0) {
-            mIsStateSizeSet = false;
-            mIsStateTextSizeSet = true;
-            resolveStateSize(mIsStateSizeSet, mIsStateTextSizeSet);
-
-        } else if (mStateSize != 0 && mStateNumberTextSize == 0) {
-            mIsStateSizeSet = true;
-            mIsStateTextSizeSet = false;
-            resolveStateSize(mIsStateSizeSet, mIsStateTextSizeSet);
-        }
-
+        resolveStateSize(mStateSize != 0, mStateNumberTextSize != 0);
     }
+
 
     private void resolveStateSize(boolean isStateSizeSet, boolean isStateTextSizeSet) {
         if (!isStateSizeSet && !isStateTextSizeSet) {
@@ -552,14 +519,15 @@ public class StateProgressBar extends View {
         } else if (isStateSizeSet && isStateTextSizeSet) {
             validateStateSize();
 
-        } else if (!isStateSizeSet && isStateTextSizeSet) {
+        } else if (!isStateSizeSet) {
             mStateSize = mStateNumberTextSize + mStateNumberTextSize / 2;
 
-        } else if (isStateSizeSet && !isStateTextSizeSet) {
+        } else {
             mStateNumberTextSize = mStateSize - (mStateSize * 0.375f);
         }
 
     }
+
 
     private void drawCircles(Canvas canvas, Paint paint, int startIndex, int endIndex) {
         for (int i = startIndex; i < endIndex; i++) {
@@ -746,10 +714,7 @@ public class StateProgressBar extends View {
     }
 
     public void setStateDescriptionData(String[] stateDescriptionData) {
-
-        for (String value : stateDescriptionData) {
-            mStateDescriptionData.add(value);
-        }
+        mStateDescriptionData = new ArrayList<>(Arrays.asList(stateDescriptionData));
 
         requestLayout();
     }
@@ -812,11 +777,7 @@ public class StateProgressBar extends View {
 
 
     private boolean isCheckIconUsed(int currentState, int statePosition) {
-        if (mEnableAllStatesCompleted || statePosition + 1 < currentState) {
-            return true;
-        } else {
-            return false;
-        }
+        return mEnableAllStatesCompleted || statePosition + 1 < currentState;
     }
 
 
@@ -907,19 +868,9 @@ public class StateProgressBar extends View {
     @Override
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
-        switch (visibility) {
-            case View.VISIBLE:
 
-                startAnimator();
+        startAnimator();
 
-                break;
-
-            default:
-
-                startAnimator();
-
-                break;
-        }
     }
 
 
