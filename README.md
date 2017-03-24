@@ -287,7 +287,7 @@ protected void onCreate(Bundle savedInstanceState) {
     app:spb_stateDescriptionColor="#808080"
     app:spb_checkStateCompleted="true"/>
 
-    ```
+ ```
 
 
 -  Description Top Spacing
