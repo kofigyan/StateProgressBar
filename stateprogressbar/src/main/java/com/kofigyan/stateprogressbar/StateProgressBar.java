@@ -173,7 +173,9 @@ public class StateProgressBar extends View {
             mCurrentStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_currentStateDescriptionColor, mCurrentStateDescriptionColor);
             mStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_stateDescriptionColor, mStateDescriptionColor);
 
-            mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber, mCurrentStateNumber);
+            mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber,
+                    a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumberInt, mCurrentStateNumber));
+
             mMaxStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_maxStateNumber, mMaxStateNumber);
 
             mStateSize = a.getDimension(R.styleable.StateProgressBar_spb_stateSize, mStateSize);
@@ -309,11 +311,18 @@ public class StateProgressBar extends View {
         return mCurrentStateDescriptionColor;
     }
 
-    public void setCurrentStateNumber(StateNumber currentStateNumber) {
-        validateStateNumber(currentStateNumber.getValue());
-        mCurrentStateNumber = currentStateNumber.getValue();
+    public void setCurrentStateNumber(int currentStateNumber) {
+        if (currentStateNumber > StateNumber.FIVE.getValue()) {
+            throw new RuntimeException("You try to access a state not authorized");
+        }
+        validateStateNumber(currentStateNumber);
+        mCurrentStateNumber = currentStateNumber;
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
+    }
+
+    public void setCurrentStateNumber(StateNumber currentStateNumber) {
+        setCurrentStateNumber(currentStateNumber.getValue());
     }
 
     public int getCurrentStateNumber() {
