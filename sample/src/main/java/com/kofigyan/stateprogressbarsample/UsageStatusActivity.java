@@ -10,7 +10,7 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
  * Created by Kofi Gyan on 7/13/2016.
  */
 
-public class UsageStatusActivity extends UsageBaseActivity {
+public class UsageStatusActivity extends  UsageBaseActivity {
 
 
     @Override
