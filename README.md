@@ -207,6 +207,22 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
 
 
+-  A Five-State StateProgressBar(Arabic/Descending)
+
+  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/five_state_arab_spb.jpg)
+
+```
+   <com.kofigyan.stateprogressbar.StateProgressBar
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   app:spb_currentStateNumber="four"
+   app:spb_maxStateNumber="five"
+   app:spb_stateNumberIsDescending="true"/>
+
+```
+
+
+
   -  Check States Completed
 
   ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/check_states_completed.png)
