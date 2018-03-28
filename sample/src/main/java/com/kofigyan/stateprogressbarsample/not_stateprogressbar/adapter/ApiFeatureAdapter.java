@@ -14,14 +14,16 @@ import com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Utils;
 
 import java.util.List;
 
+import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.IS_DESCENDING_ASCENDING_OPTIONS;
+
 /**
  * Created by Kofi Gyan on 7/12/2016.
  */
 
 public class ApiFeatureAdapter extends RecyclerView.Adapter<ApiFeatureAdapter.ItemViewHolder> {
 
-    List<ApiFeature> apiFeatures;
-    Context context;
+    private List<ApiFeature> apiFeatures;
+    private Context context;
 
     public ApiFeatureAdapter(List<ApiFeature> apiFeatures, Context context) {
         this.apiFeatures = apiFeatures;
@@ -47,8 +49,8 @@ public class ApiFeatureAdapter extends RecyclerView.Adapter<ApiFeatureAdapter.It
             listener.onItemClick(v, getLayoutPosition());
         }
 
-        public static interface ItemClickListener {
-            public void onItemClick(View v, int position);
+        public interface ItemClickListener {
+             void onItemClick(View v, int position);
         }
 
     }
@@ -66,6 +68,7 @@ public class ApiFeatureAdapter extends RecyclerView.Adapter<ApiFeatureAdapter.It
             public void onItemClick(View view, int position) {
 
                 Intent intent = new Intent(context, Utils.selectActivity(position, Utils.allActivities));
+                intent.putExtra(IS_DESCENDING_ASCENDING_OPTIONS, true);
                 context.startActivity(intent);
 
             }

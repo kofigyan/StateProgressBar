@@ -13,18 +13,29 @@ import com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Utils;
 
 import java.util.List;
 
+import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.ASCENDING;
+import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.DESCENDING;
+import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.IS_DESCENDING_ASCENDING_OPTIONS;
+
 /**
  * Created by Kofi Gyan on 7/12/2016.
  */
 
 public class StatesListAdapter extends RecyclerView.Adapter<StatesListAdapter.ItemViewHolder> {
 
-    List<String> items;
-    Context context;
+    private List<String> items;
+    private Context context;
+    private boolean isDescending;
 
     public StatesListAdapter(List<String> items, Context context) {
         this.items = items;
         this.context = context;
+    }
+
+    public StatesListAdapter(List<String> items, Context context, boolean isDescending) {
+        this.items = items;
+        this.context = context;
+        this.isDescending = isDescending;
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -44,8 +55,8 @@ public class StatesListAdapter extends RecyclerView.Adapter<StatesListAdapter.It
             listener.onItemClick(v, getLayoutPosition());
         }
 
-        public static interface ItemClickListener {
-            public void onItemClick(View v, int position);
+        public interface ItemClickListener {
+             void onItemClick(View v, int position);
         }
 
     }
@@ -61,8 +72,23 @@ public class StatesListAdapter extends RecyclerView.Adapter<StatesListAdapter.It
         ItemViewHolder ivh = new ItemViewHolder(v, new ItemViewHolder.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(context, Utils.selectActivity(position ,Utils.basicActivities));
-                context.startActivity(intent);
+
+                if (items.get(position).equals(ASCENDING)) {
+                    Intent intent = new Intent(context, Utils.selectActivity(position, Utils.allActivities));
+                    intent.putExtra(DESCENDING, false);
+                    context.startActivity(intent);
+
+
+                } else if (items.get(position).equals(DESCENDING)) {
+                    Intent intent = new Intent(context, Utils.selectActivity(position - 1, Utils.allActivities));
+                    intent.putExtra(DESCENDING, true);
+                    context.startActivity(intent);
+
+                } else {
+
+                    Intent intent = new Intent(context, Utils.selectActivity(position, isDescending ? Utils.basicDescendingActivities : Utils.basicActivities));
+                    context.startActivity(intent);
+                }
 
             }
         });

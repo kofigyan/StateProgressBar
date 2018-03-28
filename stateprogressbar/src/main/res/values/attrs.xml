@@ -22,7 +22,8 @@
 
         <attr name="spb_checkStateCompleted" format="boolean" />
 
-
+        <attr name="spb_stateNumberIsDescending" format="boolean" />
+ 
         <attr name="spb_animateToCurrentProgressState" format="boolean" />
 
         <attr name="spb_enableAllStatesCompleted" format="boolean" />

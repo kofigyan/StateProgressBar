@@ -42,5 +42,11 @@
         <item>2 States</item>
     </string-array>
 
+    <string-array name="state_ascending_descending_test">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
+
 
 </resources>

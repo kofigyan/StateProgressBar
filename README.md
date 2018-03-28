@@ -14,14 +14,14 @@ Get a feel of how it works:
        src="https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/google-play-badge.png" />
 </a>
 
-Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for detail documentation.
+Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for detailed documentation.
 
 ### Gradle
 
 Add the following dependency to your build.gradle :
 ```
 dependencies {
-     compile 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.6'
+     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.8'
 }
 ```
 
@@ -190,6 +190,22 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    app:spb_maxStateNumber="four"/>
 
 ```
+
+
+-  A Five-State StateProgressBar
+
+  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/five_state_spb.jpg)
+
+```
+   <com.kofigyan.stateprogressbar.StateProgressBar
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   app:spb_currentStateNumber="four"
+   app:spb_maxStateNumber="five"/>
+
+```
+
+
 
   -  Check States Completed
 

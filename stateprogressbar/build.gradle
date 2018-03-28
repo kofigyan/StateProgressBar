@@ -12,7 +12,7 @@ ext {
 
     siteUrl = 'https://github.com/nuuneoi/FBLikeAndroid'
 
-    libraryVersion = '0.0.6'
+    libraryVersion = '0.0.8'
 
     developerId = 'kofigyan2011'
     developerName = 'Kofi Gyan'
@@ -43,7 +43,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/kofigyan/JCenter/master/installv1.gradle'
