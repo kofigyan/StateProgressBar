@@ -301,6 +301,43 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
+
+- Add State Item Click Listener
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/click_listener.gif)
+
+```
+ <com.kofigyan.stateprogressbar.StateProgressBar
+ android:id="@+id/your_state_progress_bar_id"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ app:spb_currentStateNumber="four"
+ app:spb_maxStateNumber="five"/>
+
+String[] descriptionData = {"Details", "Status", "Photo", "Confirm"};
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.your_layout);
+
+ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
+ stateProgressBar.setStateDescriptionData(descriptionData);
+
+ stateProgressBar.setOnStateItemClickListener(new OnStateItemClickListener() {
+             @Override
+             public void onStateItemClick(StateProgressBar stateProgressBar, StateItem stateItem, int stateNumber, boolean isCurrentState) {
+                 Toast.makeText(getApplicationContext(), "state Clicked Number is " + stateNumber, Toast.LENGTH_LONG).show();
+
+             }
+         });
+
+}
+
+```
+
+
+
 - Change Colors (State Background , State Foreground, State Number Background ,State Number Foreground, Current State Description, State Description)
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_color_change.png)
