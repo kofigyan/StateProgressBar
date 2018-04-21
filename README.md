@@ -121,6 +121,19 @@ protected void onCreate(Bundle savedInstanceState) {
         spb_animationStartDelay => State joining line animation start delay . Must be an integer value eg. "500" , "1000" , "2000" , "5000" , "10000" etc
         Related method : setAnimationStartDelay(int)
 
+        spb_descriptionLinesSpacing => State description multiline spacing . Must be a dimension value with preferrable unit of dp eg. 20dp
+        Related method : setDescriptionLinesSpacing(float)
+
+        spb_justifyMultilineDescription => Justify multiline description. Must be a boolean value,either "true" or "false"
+        Related method : setJustifyMultilineDescription(boolean)
+
+        spb_maxDescriptionLines => Maximum number of line for multiline description . Must be an integer value eg. "2" , "3" , "4" , "5" , "6" etc
+        Related method : setMaxDescriptionLine(int)
+
+        spb_stateNumberIsDescending => Rtl Language support. Must be a boolean value,either "true" or "false"
+        Related method : setStateNumberIsDescending(boolean)
+
+
 
 ## JAVA
 
@@ -144,7 +157,12 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
     stateProgressBar.setCurrentStateDescriptionColor(ContextCompat.getColor(this, R.color.description_foreground_color));
     stateProgressBar.setStateDescriptionColor(ContextCompat.getColor(this,  R.color.description_background_color));
 
+    stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+    stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
 
+    stateProgressBar.setMaxDescriptionLine(2);
+    stateProgressBar.setJustifyMultilineDescription(true);
+    stateProgressBar.setDescriptionLinesSpacing(5f);
 
 
 
