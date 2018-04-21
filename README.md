@@ -21,7 +21,7 @@ Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for detailed
 Add the following dependency to your build.gradle :
 ```
 dependencies {
-     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.8'
+     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.9'
 }
 ```
 
@@ -207,7 +207,7 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 
 
 
--  A Five-State StateProgressBar(Arabic/Descending)
+-  A Five-State StateProgressBar(Descending/Rtl Languages Support)
 
   ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/five_state_arab_spb.jpg)
 
@@ -317,6 +317,30 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 
+- Add Custom Font to State Items and State Description Data
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/custom_font_spb.jpg)
+
+```
+ String[] descriptionData = {"Details", "Status", "Photo", "Confirm"};
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.your_layout);
+
+ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
+ stateProgressBar.setStateDescriptionData(descriptionData);
+
+   stateProgressBar.setStateDescriptionTypeface("fonts/RobotoSlab-Light.ttf");
+   stateProgressBar.setStateNumberTypeface("fonts/Questrial-Regular.ttf");
+
+
+}
+
+```
+
+
 - Change Colors (State Background , State Foreground, State Number Background ,State Number Foreground, Current State Description, State Description)
 
  ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/state_color_change.png)
@@ -381,6 +405,34 @@ protected void onCreate(Bundle savedInstanceState) {
  app:spb_stateSize="40dp"
  app:spb_stateTextSize="15sp" />
 ```
+
+
+- Add Multiline Description Data to StateProgressBar
+
+ ![alt tag](https://raw.githubusercontent.com/kofigyan/StateProgressBar/master/screenshots/desc_multiline_spb.jpg)
+
+```
+ <com.kofigyan.stateprogressbar.StateProgressBar
+ android:id="@+id/your_state_progress_bar_id"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ app:spb_currentStateNumber="two"
+ app:spb_maxStateNumber="four"/>
+
+    String[] descriptionData = {"Details\nPlace", "Status\nPrice", "Photo\nShoot", "Confirm\nResponse" , "Buy\nDone"};
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.your_layout);
+
+ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.your_state_progress_bar_id);
+ stateProgressBar.setStateDescriptionData(descriptionData);
+
+}
+
+```
+
 
 ##  Developer
 

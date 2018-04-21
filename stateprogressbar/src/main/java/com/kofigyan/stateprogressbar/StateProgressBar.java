@@ -54,9 +54,10 @@ public class StateProgressBar extends View {
     private static final String ANIM_END_X_POS_KEY = "mAnimEndXPos";
     private static final String IS_CURRENT_ANIM_STARTED_KEY = "mIsCurrentAnimStarted";
     private static final String ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY = "mAnimateToCurrentProgressState";
+    private static final String IS_STATE_NUMBER_DESCENDING_KEY = "mIsStateNumberDescending";
     private static final String SUPER_STATE_KEY = "superState";
 
-    private ArrayList<String> mStateDescriptionData = new ArrayList<>();
+    private ArrayList<String> mStateDescriptionData = new ArrayList<String>();
 
     private float mStateRadius;
     private float mStateSize;
@@ -139,17 +140,29 @@ public class StateProgressBar extends View {
 
     private int mStateItemClickedNumber;
 
-    private String mEmptySpaceDescriptor = "";
+    private static final String EMPTY_SPACE_DESCRIPTOR = "";
+
+
+    private Typeface mCustomStateNumberTypeface;
+    private Typeface mCustomStateDescriptionTypeface;
+    private Typeface mDefaultTypefaceBold;
+
+
+    private boolean mIsDescriptionMultiline;
+    private int mMaxDescriptionLine;
+    private float mDescriptionLinesSpacing;
+
+    private static final String STATE_DESCRIPTION_LINE_SEPARATOR = "\n";
+
+    private boolean mJustifyMultilineDescription;
 
 
     private boolean mAnimateToCurrentProgressState;
     private boolean mEnableAllStatesCompleted;
     private boolean mCheckStateCompleted;
 
-
     private Typeface mCheckFont;
 
-    private Typeface mCustomStateNumberTypeface;
 
     private OnStateItemClickListener mOnStateItemClickListener;
 
@@ -181,6 +194,7 @@ public class StateProgressBar extends View {
         mSpacing = convertDpToPixel(mSpacing);
 
         mCheckFont = FontManager.getTypeface(context);
+        mDefaultTypefaceBold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
 
 
         if (attrs != null) {
@@ -214,6 +228,12 @@ public class StateProgressBar extends View {
 
             mIsStateNumberDescending = a.getBoolean(R.styleable.StateProgressBar_spb_stateNumberIsDescending, mIsStateNumberDescending);
 
+            mMaxDescriptionLine = a.getInteger(R.styleable.StateProgressBar_spb_maxDescriptionLines, mMaxDescriptionLine);
+
+            mDescriptionLinesSpacing = a.getDimension(R.styleable.StateProgressBar_spb_descriptionLinesSpacing, mDescriptionLinesSpacing);
+
+            mJustifyMultilineDescription = a.getBoolean(R.styleable.StateProgressBar_spb_justifyMultilineDescription, mJustifyMultilineDescription);
+
 
             if (!mAnimateToCurrentProgressState) {
                 stopAnimation();
@@ -233,27 +253,45 @@ public class StateProgressBar extends View {
 
     private void initializePainters() {
 
-        Typeface typefaceBold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
-
         mBackgroundPaint = setPaintAttributes(mStateLineThickness, mBackgroundColor);
         mForegroundPaint = setPaintAttributes(mStateLineThickness, mForegroundColor);
-        mStateNumberForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, typefaceBold);
+
+        mStateNumberForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
         mStateCheckedForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, mCheckFont);
-        mStateNumberBackgroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberBackgroundColor, typefaceBold);
-        mCurrentStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mCurrentStateDescriptionColor, typefaceBold);
-        mStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mStateDescriptionColor, typefaceBold);
+
+        mStateNumberBackgroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberBackgroundColor, mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
+        mCurrentStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mCurrentStateDescriptionColor, mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
+
+        mStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mStateDescriptionColor, mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
 
     }
 
 
-    /**
-     * public Typeface setStateNumberForegroundTypeface(String pathToFont) {
-     * Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), pathToFont);
-     * Typeface boldCustomFont = Typeface.create(customFont, Typeface.BOLD);
-     * <p>
-     * return boldCustomFont;
-     * }
-     **/
+    public void setStateNumberTypeface(String pathToFont) {
+        mCustomStateNumberTypeface = FontManager.getTypeface(getContext(), pathToFont);
+        mStateNumberForegroundPaint.setTypeface(mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
+        mStateNumberBackgroundPaint.setTypeface(mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
+
+        invalidate();
+    }
+
+
+    public Typeface getStateNumberTypeface() {
+        return mCustomStateNumberTypeface;
+    }
+
+
+    public void setStateDescriptionTypeface(String pathToFont) {
+        mCustomStateDescriptionTypeface = FontManager.getTypeface(getContext(), pathToFont);
+        mStateDescriptionPaint.setTypeface(mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
+        mCurrentStateDescriptionPaint.setTypeface(mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
+
+        invalidate();
+    }
+
+    public Typeface getStateDescriptionTypeface(String pathToFont) {
+        return mCustomStateDescriptionTypeface;
+    }
 
 
     private void validateLineThickness(float lineThickness) {
@@ -481,6 +519,15 @@ public class StateProgressBar extends View {
         return mDescTopSpaceIncrementer;
     }
 
+    public float getDescriptionLinesSpacing() {
+        return mDescriptionLinesSpacing;
+    }
+
+    public void setDescriptionLinesSpacing(float descriptionLinesSpacing) {
+        mDescriptionLinesSpacing = descriptionLinesSpacing;
+        requestLayout();
+    }
+
 
     public void setAnimationDuration(int animDuration) {
         mAnimDuration = animDuration;
@@ -511,21 +558,57 @@ public class StateProgressBar extends View {
     }
 
 
+    public boolean isDescriptionMultiline() {
+        return mIsDescriptionMultiline;
+    }
+
+
+    private void updateDescriptionMultilineStatus(boolean multiline) {
+        mIsDescriptionMultiline = multiline;
+    }
+
+
+    public int getMaxDescriptionLine() {
+        return mMaxDescriptionLine;
+    }
+
+
+    public void setMaxDescriptionLine(int maxDescriptionLine) {
+        mMaxDescriptionLine = maxDescriptionLine;
+        requestLayout();
+    }
+
+
+    public boolean isJustifyMultilineDescription() {
+        return mJustifyMultilineDescription;
+    }
+
+    public void setJustifyMultilineDescription(boolean justifyMultilineDescription) {
+        mJustifyMultilineDescription = justifyMultilineDescription;
+        invalidate();
+    }
+
+
+
+
     private Paint setPaintAttributes(float strokeWidth, int color) {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
+        Paint paint = setPaintAttributes(color);
         paint.setStrokeWidth(strokeWidth);
-        paint.setColor(color);
         return paint;
     }
 
     private Paint setPaintAttributes(float textSize, int color, Typeface typeface) {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
+        Paint paint = setPaintAttributes(color);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(textSize);
-        paint.setColor(color);
         paint.setTypeface(typeface);
+        return paint;
+    }
+
+    private Paint setPaintAttributes(int color) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(color);
         return paint;
     }
 
@@ -551,6 +634,8 @@ public class StateProgressBar extends View {
         mDescTopSpaceDecrementer = 0.0f;
         mDescTopSpaceIncrementer = 0.0f;
 
+        mDescriptionLinesSpacing = 0.0f;
+
         mCheckStateCompleted = false;
         mAnimateToCurrentProgressState = false;
         mEnableAllStatesCompleted = false;
@@ -559,6 +644,8 @@ public class StateProgressBar extends View {
         mAnimDuration = 4000;
 
         mIsStateNumberDescending = false;
+
+        mJustifyMultilineDescription = false;
     }
 
 
@@ -724,13 +811,49 @@ public class StateProgressBar extends View {
         if (mStateDescriptionData.isEmpty()) {
             return (int) (2 * mStateRadius) + (int) (mSpacing);
         } else {
-            return (int) (2 * mStateRadius) + (int) (1.3 * mStateDescriptionSize) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer);  // mStageHeight = mCellHeight + ( 2 * description Text Size)
+            if (checkForDescriptionMultiLine(mStateDescriptionData)) {
+                return (int) (2 * mStateRadius) + (int) (selectMaxDescriptionLine(mMaxDescriptionLine) * (1.3 * mStateDescriptionSize)) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer) + (int) mDescriptionLinesSpacing;
+
+            } else {
+                return (int) (2 * mStateRadius) + (int) (1.3 * mStateDescriptionSize) + (int) (mSpacing) - (int) (mDescTopSpaceDecrementer) + (int) (mDescTopSpaceIncrementer);
+            }
         }
     }
+
 
     private int getCellHeight() {
         return (int) (2 * mStateRadius) + (int) (mSpacing);
     }
+
+
+    private boolean checkForDescriptionMultiLine(ArrayList<String> stateDescriptionData) {
+        boolean isMultiLine = false;
+        for (String stateDescription : stateDescriptionData) {
+            isMultiLine = stateDescription.contains(STATE_DESCRIPTION_LINE_SEPARATOR);
+            if (isMultiLine) {
+                updateDescriptionMultilineStatus(isMultiLine);
+                return isMultiLine;
+            }
+        }
+        return isMultiLine;
+    }
+
+
+    private int getMaxDescriptionLine(List<String> stateDescriptionData) {
+        int maxLine = 1;
+        for (String stateDescription : stateDescriptionData) {
+            int lineSize = stateDescription.split(STATE_DESCRIPTION_LINE_SEPARATOR).length;
+            maxLine = lineSize > maxLine ? lineSize : maxLine;
+        }
+        mMaxDescriptionLine = maxLine;
+        return maxLine;
+    }
+
+
+    private int selectMaxDescriptionLine(int maxLine) {
+        return maxLine > 1 ? maxLine : getMaxDescriptionLine(mStateDescriptionData);
+    }
+
 
     private void drawState(Canvas canvas) {
 
@@ -896,9 +1019,32 @@ public class StateProgressBar extends View {
                 if (i < mMaxStateNumber) {
                     innerPaintType = selectDescriptionPaint(mCurrentStateNumber, i);
                     xPos = (int) (mNextCellWidth - (mCellWidth / 2));
-                    yPos = (int) (mCellHeight + mStateDescriptionSize - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer);//mSpacing = mStateNumberForegroundPaint.getTextSize()
 
-                    canvas.drawText(mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i), xPos, yPos, innerPaintType);
+
+                    if (mIsDescriptionMultiline && mMaxDescriptionLine > 1) {
+                        String stateDescription = mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i);
+                        int nextLineCounter = 0;
+                        int newXPos = 0;
+                        String[] stateDescriptionLines = stateDescription.split(STATE_DESCRIPTION_LINE_SEPARATOR);
+
+                        for (String line : stateDescriptionLines) {
+                            nextLineCounter = nextLineCounter + 1;
+
+                            if (mJustifyMultilineDescription && nextLineCounter > 1) {
+                                newXPos = getNewXPosForDescriptionMultilineJustification(stateDescriptionLines[0], line, innerPaintType, xPos);
+                            }
+
+                            if (nextLineCounter <= mMaxDescriptionLine) {
+                                yPos = (int) (mCellHeight + (nextLineCounter * mStateDescriptionSize) - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer + (nextLineCounter > 1 ? (mDescriptionLinesSpacing * (nextLineCounter - 1)) : 0));//mSpacing = mStateNumberForegroundPaint.getTextSize()
+                                canvas.drawText(line, newXPos == 0 ? xPos : newXPos, yPos, innerPaintType);
+                            }
+
+                        }
+
+                    } else {
+                        yPos = (int) (mCellHeight + mStateDescriptionSize - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer);//mSpacing = mStateNumberForegroundPaint.getTextSize()
+                        canvas.drawText(mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i), xPos, yPos, innerPaintType);
+                    }
 
                     mNextCellWidth += mCellWidth;
                 }
@@ -907,6 +1053,34 @@ public class StateProgressBar extends View {
         }
 
         mNextCellWidth = mCellWidth;
+    }
+
+
+    private int getNewXPosForDescriptionMultilineJustification(String firstLine, String nextLine, Paint paint, int xPos) {
+
+        float firstLineWidth = paint.measureText(firstLine);
+        float nextLineWidth = paint.measureText(nextLine);
+
+        float newXPos;
+        float widthDiff;
+
+        if (firstLineWidth > nextLineWidth) {
+
+            widthDiff = firstLineWidth - nextLineWidth;
+            newXPos = xPos - widthDiff / 2;
+
+        } else if (firstLineWidth < nextLineWidth) {
+
+            widthDiff = nextLineWidth - firstLineWidth;
+            newXPos = xPos + widthDiff / 2;
+
+        } else {
+            newXPos = xPos;
+        }
+
+
+        return Math.round(newXPos);
+
     }
 
 
@@ -927,7 +1101,7 @@ public class StateProgressBar extends View {
         final int stateDescriptionDataSize = stateDescriptionData.size();
         if (stateDescriptionDataSize < mMaxStateNumber) {
             for (int i = 0; i < mMaxStateNumber - stateDescriptionDataSize; i++) {
-                stateDescriptionData.add(stateDescriptionDataSize + i, mEmptySpaceDescriptor);
+                stateDescriptionData.add(stateDescriptionDataSize + i, EMPTY_SPACE_DESCRIPTOR);
             }
         }
     }
@@ -1156,6 +1330,8 @@ public class StateProgressBar extends View {
 
         bundle.putBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY, this.mAnimateToCurrentProgressState);
 
+        bundle.putBoolean(IS_STATE_NUMBER_DESCENDING_KEY, this.mIsStateNumberDescending);
+
 
         return bundle;
     }
@@ -1176,6 +1352,8 @@ public class StateProgressBar extends View {
             mIsCurrentAnimStarted = bundle.getBoolean(IS_CURRENT_ANIM_STARTED_KEY);
 
             mAnimateToCurrentProgressState = bundle.getBoolean(ANIMATE_TO_CURRENT_PROGRESS_STATE_KEY);
+
+            mIsStateNumberDescending = bundle.getBoolean(IS_STATE_NUMBER_DESCENDING_KEY);
 
             state = bundle.getParcelable(SUPER_STATE_KEY);
         }

@@ -23,7 +23,7 @@
         <attr name="spb_checkStateCompleted" format="boolean" />
 
         <attr name="spb_stateNumberIsDescending" format="boolean" />
- 
+
         <attr name="spb_animateToCurrentProgressState" format="boolean" />
 
         <attr name="spb_enableAllStatesCompleted" format="boolean" />
@@ -35,6 +35,12 @@
         <attr name="spb_animationDuration" format="integer" />
 
         <attr name="spb_animationStartDelay" format="integer" />
+
+        <attr name="spb_justifyMultilineDescription" format="boolean" />
+
+        <attr name="spb_descriptionLinesSpacing" format="dimension" />
+
+        <attr name="spb_maxDescriptionLines" format="integer" />
 
 
         <attr name="spb_currentStateNumber" format="enum">
