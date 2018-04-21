@@ -164,6 +164,7 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
     stateProgressBar.setJustifyMultilineDescription(true);
     stateProgressBar.setDescriptionLinesSpacing(5f);
 
+    stateProgressBar.setStateNumberIsDescending(true);
 
 
 ### EXTRA DEMOS(WITH CODES)
