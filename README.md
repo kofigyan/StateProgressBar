@@ -416,8 +416,8 @@ protected void onCreate(Bundle savedInstanceState) {
  android:id="@+id/your_state_progress_bar_id"
  android:layout_width="wrap_content"
  android:layout_height="wrap_content"
- app:spb_currentStateNumber="two"
- app:spb_maxStateNumber="four"/>
+ app:spb_currentStateNumber="three"
+ app:spb_maxStateNumber="five"/>
 
     String[] descriptionData = {"Details\nPlace", "Status\nPrice", "Photo\nShoot", "Confirm\nResponse" , "Buy\nDone"};
 
