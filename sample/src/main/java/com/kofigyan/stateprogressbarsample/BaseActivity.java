@@ -1,7 +1,7 @@
 package com.kofigyan.stateprogressbarsample;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
