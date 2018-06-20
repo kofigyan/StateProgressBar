@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/anim_start_delay"
+        android:title="Change Anim Start Delay"></item>
+    <item
+        android:id="@+id/anim_duration"
+        android:title="Change Anim Duration"></item>
+
+</menu>

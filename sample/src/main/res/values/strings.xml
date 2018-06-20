@@ -13,6 +13,8 @@
     <string name="spacing">Change Description Spacing</string>
     <string name="description_size">Change Description Size </string>
 
+    <string name="max_error_message">Maximum number cannot be less than current state number</string>
+
     <string-array name="features_titles">
         <item>States</item>
         <item>Check</item>

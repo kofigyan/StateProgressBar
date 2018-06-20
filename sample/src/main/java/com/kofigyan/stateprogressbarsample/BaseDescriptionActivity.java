@@ -3,6 +3,11 @@ package com.kofigyan.stateprogressbarsample;
 import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.kofigyan.stateprogressbar.StateProgressBar;
+import com.kofigyan.stateprogressbar.components.StateItem;
+import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 
 
 /**
@@ -17,6 +22,16 @@ public abstract class BaseDescriptionActivity extends BaseActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         stateProgressBar.setStateDescriptionData(descriptionData);
+
+
+        /**
+        stateProgressBar.setOnStateItemClickListener(new OnStateItemClickListener() {
+            @Override
+            public void onStateItemClick(StateProgressBar stateProgressBar, StateItem stateItem, int stateNumber, boolean isCurrentState) {
+                Toast.makeText(getApplicationContext() , "Listener Clicked" , Toast.LENGTH_LONG).show();
+            }
+        });
+        **/
     }
 
     @Override

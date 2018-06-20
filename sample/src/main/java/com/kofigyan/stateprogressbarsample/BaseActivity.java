@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
+import com.kofigyan.stateprogressbar.components.StateItem;
+import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 
 /**
  * Created by Kofi Gyan on 7/22/2016.
@@ -64,6 +67,36 @@ public abstract class BaseActivity extends Activity {
             case R.id.line_thickness:
 
                 stateProgressBar.setStateLineThickness(10f);
+
+                break;
+
+            case R.id.current_state:
+                if (stateProgressBar.getMaxStateNumber() >= StateProgressBar.StateNumber.TWO.getValue())
+                    stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+                else
+                    Toast.makeText(getApplicationContext() , getResources().getString(R.string.max_error_message) , Toast.LENGTH_LONG).show();
+
+
+                break;
+
+            case R.id.max_state:
+                if (stateProgressBar.getCurrentStateNumber() <= StateProgressBar.StateNumber.FOUR.getValue())
+                    stateProgressBar.setMaxStateNumber(StateProgressBar.StateNumber.FOUR);
+                else
+                Toast.makeText(getApplicationContext() , getResources().getString(R.string.max_error_message) , Toast.LENGTH_LONG).show();
+
+                break;
+
+            case R.id.check_state_completed:
+
+                stateProgressBar.checkStateCompleted(Boolean.TRUE);
+
+                break;
+
+
+            case R.id.enable_all_states_completed:
+
+                stateProgressBar.setAllStatesCompleted(Boolean.TRUE);
 
                 break;
 

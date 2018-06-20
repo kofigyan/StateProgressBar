@@ -21,7 +21,7 @@ Check the [wiki](https://github.com/kofigyan/StateProgressBar/wiki) for detailed
 Add the following dependency to your build.gradle :
 ```
 dependencies {
-     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:0.0.9'
+     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
 }
 ```
 

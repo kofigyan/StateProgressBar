@@ -17,5 +17,23 @@
         android:id="@+id/line_thickness"
         android:title="Change Line Thickness"></item>
 
+    <item
+        android:id="@+id/current_state"
+        android:title="Current State"></item>
+
+
+    <item
+        android:id="@+id/max_state"
+        android:title="Max State"></item>
+
+    <item
+        android:id="@+id/check_state_completed"
+        android:title="Check State Completed"></item>
+
+    <item
+        android:id="@+id/enable_all_states_completed"
+        android:title="Enable All Completed"></item>
+
+
 
 </menu>
