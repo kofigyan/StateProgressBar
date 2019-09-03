@@ -27,13 +27,14 @@ import java.util.List;
 
 /**
  * Created by Kofi Gyan on 4/19/2016.
+ * Edited by HSS on 03/09/2019.
  */
 
 public class StateProgressBar extends View {
 
 
 public enum StateNumber {
-ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8);
+    ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8);
 private int value;
 
     StateNumber(int value) {
