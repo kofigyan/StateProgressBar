@@ -32,18 +32,18 @@ import java.util.List;
 public class StateProgressBar extends View {
 
 
-    public enum StateNumber {
-        ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
-        private int value;
+public enum StateNumber {
+ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8);
+private int value;
 
-        StateNumber(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
+    StateNumber(int value) {
+        this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
+}
 
     private static final int MIN_STATE_NUMBER = 1;
     private static final int MAX_STATE_NUMBER = 5;
