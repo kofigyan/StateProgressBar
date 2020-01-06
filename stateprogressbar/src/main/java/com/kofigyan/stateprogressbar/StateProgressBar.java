@@ -994,7 +994,7 @@ public class StateProgressBar extends View {
 
 
     private void drawCurrentStateJoiningLine(Canvas canvas) {
-        if (mAnimateToCurrentProgressState) {
+        if (mAnimateToCurrentProgressState && mCurrentStateNumber > 1) {
             animateToCurrentState(canvas);
         } else {
             drawLineToCurrentState(canvas);

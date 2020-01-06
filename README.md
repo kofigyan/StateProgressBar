@@ -484,7 +484,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ##  Developer
 
   Kofi Gyan
-  (kofigyan2011@gmail.com) Currently open to android engineer positions(remote/relocation)
+  (kofigyan2011@gmail.com) Currently opened to Android engineer position(remote/relocation)
 
 ##  License
 
