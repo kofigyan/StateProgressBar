@@ -43,6 +43,8 @@
         <attr name="spb_maxDescriptionLines" format="integer" />
 
 
+        <attr name="spb_currentStateNumberInt" format="integer" />
+
         <attr name="spb_currentStateNumber" format="enum">
             <enum name="one" value="1" />
             <enum name="two" value="2" />
