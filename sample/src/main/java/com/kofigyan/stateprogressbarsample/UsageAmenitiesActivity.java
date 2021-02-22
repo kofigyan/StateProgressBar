@@ -21,7 +21,7 @@ public class UsageAmenitiesActivity extends UsageBaseActivity {
 
         injectBackView();
 
-        stateprogressbar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+        stateprogressbar.setCurrentStateNumber(3);
     }
 
     @Override

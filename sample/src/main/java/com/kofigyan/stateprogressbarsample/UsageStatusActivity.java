@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.kofigyan.stateprogressbar.StateProgressBar;
-
 /**
  * Created by Kofi Gyan on 7/13/2016.
  */
@@ -22,7 +20,7 @@ public class UsageStatusActivity extends  UsageBaseActivity {
         injectBackView();
 
         nextBtn.setText("Submit");
-        stateprogressbar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+        stateprogressbar.setCurrentStateNumber(4);
     }
 
 

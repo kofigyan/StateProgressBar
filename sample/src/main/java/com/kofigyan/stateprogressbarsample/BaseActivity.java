@@ -1,14 +1,13 @@
 package com.kofigyan.stateprogressbarsample;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.kofigyan.stateprogressbar.components.StateItem;
-import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 
 /**
  * Created by Kofi Gyan on 7/22/2016.
@@ -21,7 +20,7 @@ public abstract class BaseActivity extends Activity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        stateProgressBar = (StateProgressBar) findViewById(R.id.state_progress_bar);
+        stateProgressBar = findViewById(R.id.state_progress_bar);
     }
 
 
@@ -71,8 +70,8 @@ public abstract class BaseActivity extends Activity {
                 break;
 
             case R.id.current_state:
-                if (stateProgressBar.getMaxStateNumber() >= StateProgressBar.StateNumber.TWO.getValue())
-                    stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+                if (stateProgressBar.getMaxStateNumber() >= 2)
+                    stateProgressBar.setCurrentStateNumber(2);
                 else
                     Toast.makeText(getApplicationContext() , getResources().getString(R.string.max_error_message) , Toast.LENGTH_LONG).show();
 
@@ -80,8 +79,8 @@ public abstract class BaseActivity extends Activity {
                 break;
 
             case R.id.max_state:
-                if (stateProgressBar.getCurrentStateNumber() <= StateProgressBar.StateNumber.FOUR.getValue())
-                    stateProgressBar.setMaxStateNumber(StateProgressBar.StateNumber.FOUR);
+                if (stateProgressBar.getCurrentStateNumber() <= 4)
+                    stateProgressBar.setMaxStateNumber(4);
                 else
                 Toast.makeText(getApplicationContext() , getResources().getString(R.string.max_error_message) , Toast.LENGTH_LONG).show();
 

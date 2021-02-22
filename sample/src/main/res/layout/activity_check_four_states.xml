@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:spb_checkStateCompleted="true"
-        app:spb_currentStateNumber="three"
-        app:spb_maxStateNumber="four" />
+        app:spb_currentStateNumber="3"
+        app:spb_maxStateNumber="4" />
 
 
 </LinearLayout>
