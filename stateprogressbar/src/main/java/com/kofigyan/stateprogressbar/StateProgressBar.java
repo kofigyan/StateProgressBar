@@ -30,6 +30,7 @@ import java.util.List;
  * Created by Kofi Gyan on 4/19/2016.
  */
 
+@SuppressWarnings({"DanglingJavadoc", "unused", "RedundantSuppression"})
 public class StateProgressBar extends View {
 
 
@@ -74,7 +75,7 @@ public class StateProgressBar extends View {
     private static final String IS_STATE_NUMBER_DESCENDING_KEY = "mIsStateNumberDescending";
     private static final String INSTANCE_STATE = "saved_instance";
 
-    private ArrayList<String> mStateDescriptionData = new ArrayList<String>();
+    private ArrayList<String> mStateDescriptionData = new ArrayList<>();
 
     private float mStateRadius;
     private float mStateSize;
@@ -592,6 +593,7 @@ public class StateProgressBar extends View {
     }
 
 
+    @SuppressWarnings("SameParameterValue")
     private void updateDescriptionMultilineStatus(boolean multiline) {
         mIsDescriptionMultiline = multiline;
     }
@@ -743,16 +745,18 @@ public class StateProgressBar extends View {
 
 
     private boolean isPointInCircle(int clickX, int clickY) {
-        boolean isTouched = false;
         for (int i = 0; i < mMaxStateNumber; i++) {
-            isTouched = (!(clickX < mCellWidth * (i + 1) - (mCellWidth / 2) - mStateRadius || clickX > mCellWidth * (i + 1) - (mCellWidth / 2) + mStateRadius || clickY < mCellHeight / 2 - mStateRadius || clickY > mCellHeight / 2 + mStateRadius));
+            boolean isTouched = (!(clickX < mCellWidth * (i + 1) - (mCellWidth / 2) - mStateRadius ||
+                    clickX > mCellWidth * (i + 1) - (mCellWidth / 2) + mStateRadius ||
+                    clickY < mCellHeight / 2 - mStateRadius ||
+                    clickY > mCellHeight / 2 + mStateRadius));
             if (isTouched) {
                 mStateItemClickedNumber = mIsStateNumberDescending ? mMaxStateNumber - i : i + 1;
-                return isTouched;
+                return true;
             }
 
         }
-        return isTouched;
+        return false;
     }
 
 
@@ -809,7 +813,7 @@ public class StateProgressBar extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        mCellWidth = getWidth() / mMaxStateNumber;
+        mCellWidth = (float)getWidth() / mMaxStateNumber;
         mNextCellWidth = mCellWidth;
     }
 
@@ -854,15 +858,14 @@ public class StateProgressBar extends View {
 
 
     private boolean checkForDescriptionMultiLine(ArrayList<String> stateDescriptionData) {
-        boolean isMultiLine = false;
         for (String stateDescription : stateDescriptionData) {
-            isMultiLine = stateDescription.contains(STATE_DESCRIPTION_LINE_SEPARATOR);
+            boolean isMultiLine = stateDescription.contains(STATE_DESCRIPTION_LINE_SEPARATOR);
             if (isMultiLine) {
-                updateDescriptionMultilineStatus(isMultiLine);
-                return isMultiLine;
+                updateDescriptionMultilineStatus(true);
+                return true;
             }
         }
-        return isMultiLine;
+        return false;
     }
 
 
@@ -870,7 +873,7 @@ public class StateProgressBar extends View {
         int maxLine = 1;
         for (String stateDescription : stateDescriptionData) {
             int lineSize = stateDescription.split(STATE_DESCRIPTION_LINE_SEPARATOR).length;
-            maxLine = lineSize > maxLine ? lineSize : maxLine;
+            maxLine = Math.max(lineSize, maxLine);
         }
         mMaxDescriptionLine = maxLine;
         return maxLine;
@@ -1198,7 +1201,7 @@ public class StateProgressBar extends View {
         Paint backgroundPaint = mIsStateNumberDescending ? mStateNumberForegroundPaint : mStateNumberBackgroundPaint;
 
         if (checkStateCompleted) {
-            return applyCheckStateCompletedPaintType(currentState, statePosition, checkStateCompleted);
+            return applyCheckStateCompletedPaintType(currentState, statePosition, true);
         } else {
             if (statePosition + 1 == currentState || statePosition + 1 < currentState) {
                 return foregroundPaint;
@@ -1210,6 +1213,7 @@ public class StateProgressBar extends View {
     }
 
 
+    @SuppressWarnings("SameParameterValue")
     private Paint applyCheckStateCompletedPaintType(int currentState, int statePosition, boolean checkStateCompleted) {
         if (checkStateCompleted(currentState, statePosition, checkStateCompleted)) {
             return mStateCheckedForegroundPaint;
@@ -1223,15 +1227,10 @@ public class StateProgressBar extends View {
 
     private boolean checkStateCompleted(int currentState, int statePosition, boolean checkStateCompleted) {
         if (!mIsStateNumberDescending) {
-            if ((mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 < currentState && checkStateCompleted)) {
-                return true;
-            }
+            return (mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 < currentState && checkStateCompleted);
         } else {
-            if ((mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 > currentState + 1 && checkStateCompleted)) {
-                return true;
-            }
+            return (mEnableAllStatesCompleted && checkStateCompleted) || (statePosition + 1 > currentState + 1 && checkStateCompleted);
         }
-        return false;
     }
 
 
@@ -1259,7 +1258,7 @@ public class StateProgressBar extends View {
 
 
     private class Animator implements Runnable {
-        private Scroller mScroller;
+        private final Scroller mScroller;
         private boolean mRestartAnimation = false;
 
         public Animator() {
