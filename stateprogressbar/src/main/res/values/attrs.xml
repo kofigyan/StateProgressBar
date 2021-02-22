@@ -47,6 +47,8 @@
 
         <attr name="spb_maxStateNumber" format="integer" />
 
+        <attr name="spb_textStartNumber" format="integer" />
+
     </declare-styleable>
 
 

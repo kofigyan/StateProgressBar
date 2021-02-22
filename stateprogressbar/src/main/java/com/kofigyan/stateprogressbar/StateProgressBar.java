@@ -43,6 +43,7 @@ public class StateProgressBar extends View {
 
     private static final String MAX_STATE_NUMBER_KEY = "mMaxStateNumber";
     private static final String CURRENT_STATE_NUMBER_KEY = "mCurrentStateNumber";
+    private static final String TEXT_START_NUMBER_KEY = "mTextStartNumber";
 
     private static final String ANIM_START_DELAY_KEY = "mAnimStartDelay";
     private static final String ANIM_DURATION_KEY = "mAnimDuration";
@@ -107,6 +108,7 @@ public class StateProgressBar extends View {
 
     private int mMaxStateNumber;
     private int mCurrentStateNumber;
+    private int mTextStartNumber;
 
     private int mAnimStartDelay;
     private int mAnimDuration;
@@ -228,6 +230,7 @@ public class StateProgressBar extends View {
 
             mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber, mCurrentStateNumber);
             mMaxStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_maxStateNumber, mMaxStateNumber);
+            mTextStartNumber = a.getInteger(R.styleable.StateProgressBar_spb_textStartNumber, mTextStartNumber);
 
             mStateSize = a.getDimension(R.styleable.StateProgressBar_spb_stateSize, mStateSize);
             mStateNumberTextSize = a.getDimension(R.styleable.StateProgressBar_spb_stateTextSize, mStateNumberTextSize);
@@ -428,6 +431,14 @@ public class StateProgressBar extends View {
 
     public int getMaxStateNumber() {
         return mMaxStateNumber;
+    }
+
+    public void setTextStartNumber(int textStart) {
+        mTextStartNumber = textStart;
+    }
+
+    public int getTextStartNumber() {
+        return mTextStartNumber;
     }
 
 
@@ -657,6 +668,7 @@ public class StateProgressBar extends View {
 
         mMaxStateNumber = 5;
         mCurrentStateNumber = 1;
+        mTextStartNumber = 1;
 
         mSpacing = 4.0f;
 
@@ -1185,9 +1197,9 @@ public class StateProgressBar extends View {
                 canvas.drawText(getContext().getString(R.string.check_icon), xPos, yPos, innerPaintType);
             } else {
                 if (mIsStateNumberDescending)
-                    canvas.drawText(String.valueOf(noOfCircles - i), xPos, yPos, innerPaintType);
+                    canvas.drawText(String.valueOf(noOfCircles - i - 1 + mTextStartNumber), xPos, yPos, innerPaintType);
                 else
-                    canvas.drawText(String.valueOf(i + 1), xPos, yPos, innerPaintType);
+                    canvas.drawText(String.valueOf(i + mTextStartNumber), xPos, yPos, innerPaintType);
             }
         }
 
@@ -1361,6 +1373,7 @@ public class StateProgressBar extends View {
 
         bundle.putInt(MAX_STATE_NUMBER_KEY, this.mMaxStateNumber);
         bundle.putInt(CURRENT_STATE_NUMBER_KEY, this.mCurrentStateNumber);
+        bundle.putInt(TEXT_START_NUMBER_KEY, this.mTextStartNumber);
         bundle.putInt(ANIM_START_DELAY_KEY, this.mAnimStartDelay);
         bundle.putInt(ANIM_DURATION_KEY, this.mAnimDuration);
 
@@ -1420,6 +1433,7 @@ public class StateProgressBar extends View {
 
             mMaxStateNumber = bundle.getInt(MAX_STATE_NUMBER_KEY);
             mCurrentStateNumber = bundle.getInt(CURRENT_STATE_NUMBER_KEY);
+            mTextStartNumber = bundle.getInt(TEXT_START_NUMBER_KEY);
             resolveMaxStateNumber();
 
             mAnimStartDelay = bundle.getInt(ANIM_START_DELAY_KEY);

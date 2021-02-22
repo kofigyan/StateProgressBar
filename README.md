@@ -69,6 +69,9 @@ protected void onCreate(Bundle savedInstanceState) {
 
         spb_maxStateNumber  => Maximum state number.
         Related method : setMaxStateNumber(int)
+        
+        spb_textStartNumber  => The number of the first label.
+        Related method : setTextStartNumber(int)
 
         spb_stateBackgroundColor  => State background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setBackgroundColor(int)
