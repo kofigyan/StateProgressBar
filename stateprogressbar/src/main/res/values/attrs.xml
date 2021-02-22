@@ -43,22 +43,9 @@
         <attr name="spb_maxDescriptionLines" format="integer" />
 
 
-        <attr name="spb_currentStateNumber" format="enum">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
-            <enum name="four" value="4" />
-            <enum name="five" value="5" />
-        </attr>
+        <attr name="spb_currentStateNumber" format="integer" />
 
-
-        <attr name="spb_maxStateNumber" format="enum">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
-            <enum name="four" value="4" />
-            <enum name="five" value="5" />
-        </attr>
+        <attr name="spb_maxStateNumber" format="integer" />
 
     </declare-styleable>
 

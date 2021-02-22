@@ -7,12 +7,13 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Scroller;
+
+import androidx.core.content.ContextCompat;
 
 import com.kofigyan.stateprogressbar.components.StateItem;
 import com.kofigyan.stateprogressbar.components.StateItemDescription;
@@ -32,21 +33,7 @@ import java.util.List;
 public class StateProgressBar extends View {
 
 
-    public enum StateNumber {
-        ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
-        private int value;
-
-        StateNumber(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
     private static final int MIN_STATE_NUMBER = 1;
-    private static final int MAX_STATE_NUMBER = 5;
 
     private static final String STATE_SIZE_KEY = "mStateSize";
     private static final String STATE_LINE_THICKNESS_KEY = "mStateLineThickness";
@@ -415,9 +402,9 @@ public class StateProgressBar extends View {
         return mCurrentStateDescriptionColor;
     }
 
-    public void setCurrentStateNumber(StateNumber currentStateNumber) {
-        validateStateNumber(currentStateNumber.getValue());
-        mCurrentStateNumber = currentStateNumber.getValue();
+    public void setCurrentStateNumber(int currentStateNumber) {
+        validateStateNumber(currentStateNumber);
+        mCurrentStateNumber = currentStateNumber;
         updateCheckAllStatesValues(mEnableAllStatesCompleted);
         invalidate();
     }
@@ -427,8 +414,8 @@ public class StateProgressBar extends View {
     }
 
 
-    public void setMaxStateNumber(StateNumber maximumState) {
-        mMaxStateNumber = maximumState.getValue();
+    public void setMaxStateNumber(int maximumState) {
+        mMaxStateNumber = maximumState;
         resolveMaxStateNumber();
     }
 
@@ -666,8 +653,8 @@ public class StateProgressBar extends View {
         mStateNumberTextSize = 0.0f;
         mStateDescriptionSize = 15f;
 
-        mMaxStateNumber = StateNumber.FIVE.getValue();
-        mCurrentStateNumber = StateNumber.ONE.getValue();
+        mMaxStateNumber = 5;
+        mCurrentStateNumber = 1;
 
         mSpacing = 4.0f;
 
@@ -974,7 +961,7 @@ public class StateProgressBar extends View {
 
 
     private void setAnimatorStartEndCenterX() {
-        if (mCurrentStateNumber > MIN_STATE_NUMBER && mCurrentStateNumber < MAX_STATE_NUMBER + 1) {
+        if (mCurrentStateNumber > MIN_STATE_NUMBER) {
             final int count = mIsStateNumberDescending ? mMaxStateNumber - mCurrentStateNumber + 1 : mCurrentStateNumber - 1;
             for (int i = 0; i < count; i++) {
 
@@ -1213,8 +1200,7 @@ public class StateProgressBar extends View {
         if (checkStateCompleted) {
             return applyCheckStateCompletedPaintType(currentState, statePosition, checkStateCompleted);
         } else {
-
-            if ((statePosition + 1 == currentState) || (statePosition + 1 < currentState && !checkStateCompleted)) {
+            if (statePosition + 1 == currentState || statePosition + 1 < currentState) {
                 return foregroundPaint;
             } else {
                 return backgroundPaint;
