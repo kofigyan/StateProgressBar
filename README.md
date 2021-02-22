@@ -32,8 +32,8 @@ dependencies {
     android:id="@+id/your_state_progress_bar_id"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:spb_currentStateNumber="three"
-    app:spb_maxStateNumber="four"
+    app:spb_currentStateNumber="3"
+    app:spb_maxStateNumber="4"
     app:spb_stateBackgroundColor="#BDBDBD"
     app:spb_stateForegroundColor="#009688"
     app:spb_stateNumberBackgroundColor="#808080"
@@ -64,11 +64,11 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ## XML Attributes
 
-        spb_currentStateNumber => Current state number. Must be one of the following constant values : one , two , three , four .
-        Related method : setCurrentStateNumber(StateNumber)
+        spb_currentStateNumber => Current state number (starts from 1).
+        Related method : setCurrentStateNumber(int)
 
-        spb_maxStateNumber  => Maximum state number. Must be one of the following constant values : one , two , three , four .
-        Related method : setMaxStateNumber(StateNumber)
+        spb_maxStateNumber  => Maximum state number.
+        Related method : setMaxStateNumber(int)
 
         spb_stateBackgroundColor  => State background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setBackgroundColor(int)
@@ -177,8 +177,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
 <com.kofigyan.stateprogressbar.StateProgressBar
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  app:spb_currentStateNumber="one"
-  app:spb_maxStateNumber="two"/>
+  app:spb_currentStateNumber="1"
+  app:spb_maxStateNumber="2"/>
 
 ```
 
@@ -191,8 +191,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
   <com.kofigyan.stateprogressbar.StateProgressBar
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  app:spb_currentStateNumber="two"
-  app:spb_maxStateNumber="three"/>
+  app:spb_currentStateNumber="2"
+  app:spb_maxStateNumber="3"/>
 
   ```
 
@@ -205,8 +205,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    <com.kofigyan.stateprogressbar.StateProgressBar
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
-   app:spb_currentStateNumber="three"
-   app:spb_maxStateNumber="four"/>
+   app:spb_currentStateNumber="3"
+   app:spb_maxStateNumber="4"/>
 
 ```
 
@@ -219,8 +219,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    <com.kofigyan.stateprogressbar.StateProgressBar
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
-   app:spb_currentStateNumber="four"
-   app:spb_maxStateNumber="five"/>
+   app:spb_currentStateNumber="4"
+   app:spb_maxStateNumber="5"/>
 
 ```
 
@@ -234,8 +234,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    <com.kofigyan.stateprogressbar.StateProgressBar
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
-   app:spb_currentStateNumber="four"
-   app:spb_maxStateNumber="five"
+   app:spb_currentStateNumber="4"
+   app:spb_maxStateNumber="5"
    app:spb_stateNumberIsDescending="true"/>
 
 ```
@@ -250,8 +250,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
    <com.kofigyan.stateprogressbar.StateProgressBar
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
-   app:spb_currentStateNumber="three"
-   app:spb_maxStateNumber="four"
+   app:spb_currentStateNumber="3"
+   app:spb_maxStateNumber="4"
    app:spb_checkStateCompleted="true"/>
 
  ```
@@ -266,8 +266,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
          <com.kofigyan.stateprogressbar.StateProgressBar
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         app:spb_currentStateNumber="three"
-         app:spb_maxStateNumber="four"
+         app:spb_currentStateNumber="3"
+         app:spb_maxStateNumber="4"
          app:spb_enableAllStatesCompleted="true"/>
 
   ```
@@ -280,8 +280,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
      <com.kofigyan.stateprogressbar.StateProgressBar
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         app:spb_currentStateNumber="three"
-         app:spb_maxStateNumber="four"
+         app:spb_currentStateNumber="3"
+         app:spb_maxStateNumber="4"
          app:spb_stateBackgroundColor="#BDBDBD"
          app:spb_stateForegroundColor="#DB0082"
          app:spb_stateNumberBackgroundColor="#808080"
@@ -318,8 +318,8 @@ StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.state_p
  android:id="@+id/your_state_progress_bar_id"
  android:layout_width="wrap_content"
  android:layout_height="wrap_content"
- app:spb_currentStateNumber="two"
- app:spb_maxStateNumber="four"/>
+ app:spb_currentStateNumber="2"
+ app:spb_maxStateNumber="4"/>
 
 String[] descriptionData = {"Details", "Status", "Photo", "Confirm"};
 
@@ -368,8 +368,8 @@ protected void onCreate(Bundle savedInstanceState) {
  <com.kofigyan.stateprogressbar.StateProgressBar
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:spb_currentStateNumber="three"
-    app:spb_maxStateNumber="four"
+    app:spb_currentStateNumber="3"
+    app:spb_maxStateNumber="4"
     app:spb_stateBackgroundColor="#BDBDBD"
     app:spb_stateForegroundColor="#009688"
     app:spb_stateNumberBackgroundColor="#808080"
@@ -435,8 +435,8 @@ protected void onCreate(Bundle savedInstanceState) {
  android:id="@+id/your_state_progress_bar_id"
  android:layout_width="wrap_content"
  android:layout_height="wrap_content"
- app:spb_currentStateNumber="three"
- app:spb_maxStateNumber="five"/>
+ app:spb_currentStateNumber="3"
+ app:spb_maxStateNumber="5"/>
 
     String[] descriptionData = {"Details\nPlace", "Status\nPrice", "Photo\nShoot", "Confirm\nResponse" , "Buy\nDone"};
 
@@ -461,8 +461,8 @@ protected void onCreate(Bundle savedInstanceState) {
  android:id="@+id/your_state_progress_bar_id"
  android:layout_width="wrap_content"
  android:layout_height="wrap_content"
- app:spb_currentStateNumber="three"
- app:spb_maxStateNumber="five"
+ app:spb_currentStateNumber="3"
+ app:spb_maxStateNumber="5"
  app:spb_justifyMultilineDescription="true"
  app:spb_descriptionLinesSpacing="5dp"/>
 
