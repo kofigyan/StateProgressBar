@@ -16,6 +16,7 @@ import android.widget.Scroller;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.kofigyan.stateprogressbar.components.StateItem;
 import com.kofigyan.stateprogressbar.components.StateItemDescription;
@@ -287,6 +288,11 @@ public class StateProgressBar extends View {
             mMaxDescriptionLine = a.getInteger(R.styleable.StateProgressBar_spb_maxDescriptionLines, mMaxDescriptionLine);
 
             mDescriptionLinesSpacing = a.getDimension(R.styleable.StateProgressBar_spb_descriptionLinesSpacing, mDescriptionLinesSpacing);
+
+            int fontId = a.getResourceId(R.styleable.StateProgressBar_spb_descriptionFontFamily, -1);
+            if (fontId != -1) {
+                mCustomStateDescriptionTypeface = ResourcesCompat.getFont(context, fontId);
+            }
 
             mJustifyMultilineDescription = a.getBoolean(R.styleable.StateProgressBar_spb_justifyMultilineDescription, mJustifyMultilineDescription);
 

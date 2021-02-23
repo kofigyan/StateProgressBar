@@ -48,6 +48,7 @@
         <attr name="spb_justifyMultilineDescription" format="boolean" />
 
         <attr name="spb_descriptionLinesSpacing" format="dimension" />
+        <attr name="spb_descriptionFontFamily" format="reference" />
 
         <attr name="spb_maxDescriptionLines" format="integer" />
 
