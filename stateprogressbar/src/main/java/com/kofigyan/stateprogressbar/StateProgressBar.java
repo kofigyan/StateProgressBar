@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Scroller;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.kofigyan.stateprogressbar.components.StateItem;
@@ -33,6 +35,25 @@ import java.util.List;
 @SuppressWarnings({"DanglingJavadoc", "unused", "RedundantSuppression"})
 public class StateProgressBar extends View {
 
+    public enum StateHighlightMode {
+        NONE(0), CURRENT(1), FINISHED(2);
+        private final int value;
+
+        StateHighlightMode(int value) {
+            this.value = value;
+        }
+
+        public int getValue() { return value; }
+
+        static StateHighlightMode fromInt(int value) {
+            switch (value) {
+                case 0: return StateHighlightMode.NONE;
+                case 1: return StateHighlightMode.CURRENT;
+                case 2: return StateHighlightMode.FINISHED;
+            }
+            return StateHighlightMode.CURRENT;
+        }
+    }
 
     private static final int MIN_STATE_NUMBER = 1;
 
@@ -58,6 +79,10 @@ public class StateProgressBar extends View {
 
     private static final String CURRENT_STATE_DESC_COLOR_KEY = "mCurrentStateDescriptionColor";
     private static final String STATE_DESC_COLOR_KEY = "mStateDescriptionColor";
+    private static final String CURRENT_STATE_DESC_BACKGROUND_COLOR_KEY = "mCurrentStateDescriptionBackgroundColor";
+    private static final String STATE_DESC_BACKGROUND_COLOR_KEY = "mStateDescriptionBackgroundColor";
+
+    private static final String STATE_HIGHLIGHT_MODE_KEY = "mStateHighlightMode";
 
     private static final String CHECK_STATE_COMPLETED_KEY = "mCheckStateCompleted";
 
@@ -118,6 +143,8 @@ public class StateProgressBar extends View {
     private float mDescTopSpaceDecrementer;
     private float mDescTopSpaceIncrementer;
 
+    private StateHighlightMode mStateHighlightMode;
+
     private static final float DEFAULT_TEXT_SIZE = 15f;
     private static final float DEFAULT_STATE_SIZE = 25f;
 
@@ -131,6 +158,8 @@ public class StateProgressBar extends View {
     private Paint mForegroundPaint;
     private Paint mCurrentStateDescriptionPaint;
     private Paint mStateDescriptionPaint;
+    private Paint mCurrentStateDescriptionBackgroundPaint;
+    private Paint mStateDescriptionBackgroundPaint;
 
     private int mBackgroundColor;
     private int mForegroundColor;
@@ -138,6 +167,8 @@ public class StateProgressBar extends View {
     private int mStateNumberForegroundColor;
     private int mCurrentStateDescriptionColor;
     private int mStateDescriptionColor;
+    private int mCurrentStateDescriptionBackgroundColor;
+    private int mStateDescriptionBackgroundColor;
 
     /**
      * animate inner line to current progress state
@@ -227,6 +258,10 @@ public class StateProgressBar extends View {
             mStateNumberForegroundColor = a.getColor(R.styleable.StateProgressBar_spb_stateNumberForegroundColor, mStateNumberForegroundColor);
             mCurrentStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_currentStateDescriptionColor, mCurrentStateDescriptionColor);
             mStateDescriptionColor = a.getColor(R.styleable.StateProgressBar_spb_stateDescriptionColor, mStateDescriptionColor);
+            mCurrentStateDescriptionBackgroundColor = a.getColor(R.styleable.StateProgressBar_spb_currentStateDescriptionBackgroundColor, mCurrentStateDescriptionBackgroundColor);
+            mStateDescriptionBackgroundColor = a.getColor(R.styleable.StateProgressBar_spb_stateDescriptionBackgroundColor, mStateDescriptionBackgroundColor);
+
+            mStateHighlightMode = StateHighlightMode.fromInt(a.getInteger(R.styleable.StateProgressBar_spb_stateHighlightMode, mStateHighlightMode.getValue()));
 
             mCurrentStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_currentStateNumber, mCurrentStateNumber);
             mMaxStateNumber = a.getInteger(R.styleable.StateProgressBar_spb_maxStateNumber, mMaxStateNumber);
@@ -277,13 +312,17 @@ public class StateProgressBar extends View {
         mBackgroundPaint = setPaintAttributes(mStateLineThickness, mBackgroundColor);
         mForegroundPaint = setPaintAttributes(mStateLineThickness, mForegroundColor);
 
-        mStateNumberForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
+        Typeface typeface = mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold;
+        mStateNumberForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, typeface);
         mStateCheckedForegroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberForegroundColor, mCheckFont);
 
-        mStateNumberBackgroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberBackgroundColor, mCustomStateNumberTypeface != null ? mCustomStateNumberTypeface : mDefaultTypefaceBold);
-        mCurrentStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mCurrentStateDescriptionColor, mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
+        mStateNumberBackgroundPaint = setPaintAttributes(mStateNumberTextSize, mStateNumberBackgroundColor, typeface);
 
-        mStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mStateDescriptionColor, mCustomStateDescriptionTypeface != null ? mCustomStateDescriptionTypeface : mDefaultTypefaceBold);
+        mCurrentStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mCurrentStateDescriptionColor, typeface);
+        mStateDescriptionPaint = setPaintAttributes(mStateDescriptionSize, mStateDescriptionColor, typeface);
+
+        mCurrentStateDescriptionBackgroundPaint = setPaintAttributes(mCurrentStateDescriptionBackgroundColor);
+        mStateDescriptionBackgroundPaint = setPaintAttributes(mStateDescriptionBackgroundColor);
 
     }
 
@@ -404,6 +443,26 @@ public class StateProgressBar extends View {
 
     public int getCurrentStateDescriptionColor() {
         return mCurrentStateDescriptionColor;
+    }
+
+    public void setStateDescriptionBackgroundColor(int stateDescriptionBackgroundColor) {
+        mStateDescriptionBackgroundColor = stateDescriptionBackgroundColor;
+        mStateDescriptionBackgroundPaint.setColor(mStateDescriptionBackgroundColor);
+        invalidate();
+    }
+
+    public int getStateDescriptionBackgroundColor() {
+        return mStateDescriptionBackgroundColor;
+    }
+
+    public void setCurrentStateDescriptionBackgroundColor(int currentStateDescriptionBackgroundColor) {
+        mCurrentStateDescriptionBackgroundColor = currentStateDescriptionBackgroundColor;
+        mCurrentStateDescriptionBackgroundPaint.setColor(mCurrentStateDescriptionBackgroundColor);
+        invalidate();
+    }
+
+    public int getCurrentStateDescriptionBackgroundColor() {
+        return mCurrentStateDescriptionBackgroundColor;
     }
 
     public void setCurrentStateNumber(int currentStateNumber) {
@@ -660,6 +719,10 @@ public class StateProgressBar extends View {
         mStateNumberForegroundColor = ContextCompat.getColor(context, R.color.foreground_text_color);
         mCurrentStateDescriptionColor = ContextCompat.getColor(context, R.color.foreground_color);
         mStateDescriptionColor = ContextCompat.getColor(context, R.color.background_text_color);
+        mCurrentStateDescriptionBackgroundColor = 0; // transparent
+        mStateDescriptionBackgroundColor = 0;
+
+        mStateHighlightMode = StateHighlightMode.CURRENT;
 
         mStateSize = 0.0f;
         mStateLineThickness = 4.0f;
@@ -774,9 +837,9 @@ public class StateProgressBar extends View {
 
     private StateItem getStateItem(int stateItemClickedNumber) {
 
-        final boolean isCurrentState = getCurrentStateNumber() == stateItemClickedNumber;
-        final boolean isForegroundColor = getCurrentStateNumber() >= stateItemClickedNumber;
-        final boolean isCompletedState = getCurrentStateNumber() > stateItemClickedNumber;
+        final boolean isCurrentState = mCurrentStateNumber == stateItemClickedNumber;
+        final boolean isForegroundColor = mCurrentStateNumber >= stateItemClickedNumber;
+        final boolean isCompletedState = mCurrentStateNumber > stateItemClickedNumber;
         final float stateSize = getStateSize();
         final int stateColor = isForegroundColor ? mForegroundColor : mBackgroundColor;
         boolean isCheckedState = false;
@@ -790,7 +853,7 @@ public class StateProgressBar extends View {
         final int stateNumberColor = isForegroundColor ? mStateNumberForegroundColor : mStateNumberBackgroundColor;
         final float stateNumberSize = getStateNumberTextSize();
 
-        final int stateDescriptionColor = isCurrentState ? mCurrentStateDescriptionColor : mStateDescriptionColor;
+        final int stateDescriptionColor = isStateHighlighted(stateItemClickedNumber) ? mCurrentStateDescriptionColor : mStateDescriptionColor;
 
 
         StateItemNumber stateItemNumber = StateItemNumber.builder().
@@ -1048,50 +1111,60 @@ public class StateProgressBar extends View {
         mNextCellWidth = mCellWidth;
     }
 
+    private @NonNull
+    RectF getTextBackgroundSize(float x, float y, @NonNull String text, @NonNull Paint paint) {
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        float halfTextLength = paint.measureText(text) / 2;
+        RectF ret = new RectF(
+                x - halfTextLength,
+                y + fontMetrics.top,
+                x + halfTextLength,
+                y + fontMetrics.bottom);
+        ret.inset(-5, 0);
+        return ret;
+    }
 
     private void drawStateDescriptionText(Canvas canvas) {
 
-        int xPos;
-        int yPos;
-        Paint innerPaintType;
+        int numDescription = Math.min(mStateDescriptionData.size(), mMaxStateNumber);
 
-        if (!mStateDescriptionData.isEmpty()) {
+        for (int i = 0; i < numDescription; i++) {
+            Paint innerPaintType = selectDescriptionPaint(i);
+            Paint backgroundPaintType = selectDescriptionBackgroundPaint(i);
 
-            for (int i = 0; i < mStateDescriptionData.size(); i++) {
-                if (i < mMaxStateNumber) {
-                    innerPaintType = selectDescriptionPaint(mCurrentStateNumber, i);
-                    xPos = (int) (mNextCellWidth - (mCellWidth / 2));
+            int xPos = (int) (mNextCellWidth - (mCellWidth / 2));
 
+            if (mIsDescriptionMultiline && mMaxDescriptionLine > 1) {
+                String stateDescription = mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i);
+                int nextLineCounter = 0;
+                int newXPos = 0;
+                String[] stateDescriptionLines = stateDescription.split(STATE_DESCRIPTION_LINE_SEPARATOR);
 
-                    if (mIsDescriptionMultiline && mMaxDescriptionLine > 1) {
-                        String stateDescription = mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i);
-                        int nextLineCounter = 0;
-                        int newXPos = 0;
-                        String[] stateDescriptionLines = stateDescription.split(STATE_DESCRIPTION_LINE_SEPARATOR);
+                for (String line : stateDescriptionLines) {
+                    nextLineCounter = nextLineCounter + 1;
 
-                        for (String line : stateDescriptionLines) {
-                            nextLineCounter = nextLineCounter + 1;
-
-                            if (mJustifyMultilineDescription && nextLineCounter > 1) {
-                                newXPos = getNewXPosForDescriptionMultilineJustification(stateDescriptionLines[0], line, innerPaintType, xPos);
-                            }
-
-                            if (nextLineCounter <= mMaxDescriptionLine) {
-                                yPos = (int) (mCellHeight + (nextLineCounter * mStateDescriptionSize) - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer + (nextLineCounter > 1 ? (mDescriptionLinesSpacing * (nextLineCounter - 1)) : 0));//mSpacing = mStateNumberForegroundPaint.getTextSize()
-                                canvas.drawText(line, newXPos == 0 ? xPos : newXPos, yPos, innerPaintType);
-                            }
-
-                        }
-
-                    } else {
-                        yPos = (int) (mCellHeight + mStateDescriptionSize - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer);//mSpacing = mStateNumberForegroundPaint.getTextSize()
-                        canvas.drawText(mIsStateNumberDescending ? mStateDescriptionData.get(mStateDescriptionData.size() - 1 - i) : mStateDescriptionData.get(i), xPos, yPos, innerPaintType);
+                    if (mJustifyMultilineDescription && nextLineCounter > 1) {
+                        newXPos = getNewXPosForDescriptionMultilineJustification(stateDescriptionLines[0], line, innerPaintType, xPos);
                     }
 
-                    mNextCellWidth += mCellWidth;
+                    if (nextLineCounter <= mMaxDescriptionLine) {
+                        int yPos = (int) (mCellHeight + (nextLineCounter * mStateDescriptionSize) - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer + (nextLineCounter > 1 ? (mDescriptionLinesSpacing * (nextLineCounter - 1)) : 0));//mSpacing = mStateNumberForegroundPaint.getTextSize()
+                        int x = newXPos == 0 ? xPos : newXPos;
+                        RectF backgroundRect = getTextBackgroundSize(x, yPos, line, innerPaintType);
+                        canvas.drawRect(backgroundRect, backgroundPaintType);
+                        canvas.drawText(line, x, yPos, innerPaintType);
+                    }
                 }
+            } else {
+                //mSpacing = mStateNumberForegroundPaint.getTextSize()
+                int yPos = (int) (mCellHeight + mStateDescriptionSize - mSpacing - mDescTopSpaceDecrementer + mDescTopSpaceIncrementer);
+                String text = mStateDescriptionData.get(mIsStateNumberDescending ? mStateDescriptionData.size() - 1 - i : i);
+                RectF backgroundRect = getTextBackgroundSize(xPos, yPos, text, innerPaintType);
+                canvas.drawRect(backgroundRect, backgroundPaintType);
+                canvas.drawText(text, xPos, yPos, innerPaintType);
             }
 
+            mNextCellWidth += mCellWidth;
         }
 
         mNextCellWidth = mCellWidth;
@@ -1125,15 +1198,35 @@ public class StateProgressBar extends View {
 
     }
 
+    private boolean isStateHighlighted(int state) {
+        switch (mStateHighlightMode) {
+            case NONE: return false;
+            case CURRENT: return state == mCurrentStateNumber;
+            case FINISHED: return state <= mCurrentStateNumber;
+        }
+        // unreachable
+        return false;
+    }
 
-    private Paint selectDescriptionPaint(int currentState, int statePosition) {
+    private Paint selectDescriptionPaint(int statePosition) {
 
-        currentState = mIsStateNumberDescending ? mMaxStateNumber + 1 - currentState : currentState;
+        int state = mIsStateNumberDescending ? mMaxStateNumber - statePosition : statePosition + 1;
 
-        if (statePosition + 1 == currentState) {
+        if (isStateHighlighted(state)) {
             return mCurrentStateDescriptionPaint;
         } else {
             return mStateDescriptionPaint;
+        }
+    }
+
+    private Paint selectDescriptionBackgroundPaint(int statePosition) {
+
+        int state = mIsStateNumberDescending ? mMaxStateNumber - statePosition : statePosition + 1;
+
+        if (isStateHighlighted(state)) {
+            return mCurrentStateDescriptionBackgroundPaint;
+        } else {
+            return mStateDescriptionBackgroundPaint;
         }
     }
 
@@ -1389,6 +1482,10 @@ public class StateProgressBar extends View {
 
         bundle.putInt(CURRENT_STATE_DESC_COLOR_KEY, this.mCurrentStateDescriptionColor);
         bundle.putInt(STATE_DESC_COLOR_KEY, this.mStateDescriptionColor);
+        bundle.putInt(CURRENT_STATE_DESC_BACKGROUND_COLOR_KEY, this.mCurrentStateDescriptionBackgroundColor);
+        bundle.putInt(STATE_DESC_BACKGROUND_COLOR_KEY, this.mStateDescriptionBackgroundColor);
+
+        bundle.putInt(STATE_HIGHLIGHT_MODE_KEY, this.mStateHighlightMode.getValue());
 
         bundle.putBoolean(CHECK_STATE_COMPLETED_KEY, this.mCheckStateCompleted);
 
@@ -1450,16 +1547,17 @@ public class StateProgressBar extends View {
             setDescriptionTopSpaceIncrementer(mDescTopSpaceIncrementer); // call requestLayout
 
             mBackgroundColor = bundle.getInt(BACKGROUND_COLOR_KEY);
-
             mForegroundColor = bundle.getInt(FOREGROUND_COLOR_KEY);
 
             mStateNumberBackgroundColor = bundle.getInt(STATE_NUMBER_BACKGROUND_COLOR_KEY);
-
             mStateNumberForegroundColor = bundle.getInt(STATE_NUMBER_FOREGROUND_COLOR_KEY);
 
             mCurrentStateDescriptionColor = bundle.getInt(CURRENT_STATE_DESC_COLOR_KEY);
-
             mStateDescriptionColor = bundle.getInt(STATE_DESC_COLOR_KEY);
+            mCurrentStateDescriptionBackgroundColor = bundle.getInt(CURRENT_STATE_DESC_BACKGROUND_COLOR_KEY);
+            mStateDescriptionBackgroundColor = bundle.getInt(STATE_DESC_BACKGROUND_COLOR_KEY);
+
+            mStateHighlightMode = StateHighlightMode.fromInt(bundle.getInt(STATE_HIGHLIGHT_MODE_KEY));
 
             mJustifyMultilineDescription = bundle.getBoolean(JUSTIFY_MULTILINE_DESC_KEY);
 

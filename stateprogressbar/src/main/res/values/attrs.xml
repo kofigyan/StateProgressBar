@@ -12,6 +12,15 @@
         <attr name="spb_currentStateDescriptionColor" format="color" />
         <attr name="spb_stateDescriptionColor" format="color" />
 
+        <attr name="spb_currentStateDescriptionBackgroundColor" format="color" />
+        <attr name="spb_stateDescriptionBackgroundColor" format="color" />
+
+        <attr name="spb_stateHighlightMode" format="enum">
+            <enum name="none" value="0" />
+            <enum name="current" value="1" />
+            <enum name="finished" value="2" />
+        </attr>
+
         <attr name="spb_stateSize" format="dimension" />
 
         <attr name="spb_stateTextSize" format="dimension" />

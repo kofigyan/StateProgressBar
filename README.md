@@ -90,8 +90,17 @@ protected void onCreate(Bundle savedInstanceState) {
 
         spb_stateDescriptionColor => State description color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
         Related method : setStateDescriptionColor(int)
+        
+        spb_currentStateDescriptionBackgroundColor => Current state description background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setCurrentStateBackgroundDescriptionColor(int)
+        
+        spb_stateDescriptionBackgroundColor => State description background color. Should be a color value. Possible forms are "#rgb", "#argb", "#rrggbb", or "#aarrggbb".
+        Related method : setStateBackgroundDescriptionColor(int)
+        
+        spb_stateHighlightMode => Choose which states should be colored according to currentState. Should be one of "none", "current" (the current state only) and "finished" (the current state and all states before it).
+        Related method : setStateHighlightMode(StateHighlightMode)
 
-        spb_stateSize => State size . Must be a dimension value with preferrable unit of dp eg. 25dp
+        spb_stateSize => State size. Must be a dimension value with preferrable unit of dp eg. 25dp
         Related method : setStateSize(float)
 
         spb_stateTextSize => State text(number) size . Must be a dimension value with preferrable unit of sp eg. 15sp
