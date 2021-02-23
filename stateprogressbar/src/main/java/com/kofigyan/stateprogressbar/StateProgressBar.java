@@ -820,17 +820,22 @@ public class StateProgressBar extends View {
 
 
     private boolean isPointInCircle(int clickX, int clickY) {
-        for (int i = 0; i < mMaxStateNumber; i++) {
-            boolean isTouched = (!(clickX < mCellWidth * (i + 1) - (mCellWidth / 2) - mStateRadius ||
-                    clickX > mCellWidth * (i + 1) - (mCellWidth / 2) + mStateRadius ||
-                    clickY < mCellHeight / 2 - mStateRadius ||
-                    clickY > mCellHeight / 2 + mStateRadius));
-            if (isTouched) {
-                mStateItemClickedNumber = mIsStateNumberDescending ? mMaxStateNumber - i : i + 1;
-                return true;
-            }
 
+        int cellNum = (int)(clickX / mCellWidth);
+        float centerX = mCellWidth * (cellNum + 0.5f);
+        float centerY = mCellHeight / 2;
+        RectF rect = new RectF(
+                centerX - mStateRadius,
+                centerY - mStateRadius,
+                centerX + mStateRadius,
+                centerY + mStateRadius
+        );
+
+        if (rect.contains(clickX, clickY)) {
+            mStateItemClickedNumber = mIsStateNumberDescending ? mMaxStateNumber - cellNum : cellNum + 1;
+            return true;
         }
+
         return false;
     }
 
