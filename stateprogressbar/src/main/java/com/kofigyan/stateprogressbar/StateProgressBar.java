@@ -668,6 +668,11 @@ public class StateProgressBar extends View {
         return mIsDescriptionMultiline;
     }
 
+    public float getStatePosition(int stateNumber) {
+        int statePosition = mIsStateNumberDescending ? mMaxStateNumber - stateNumber : stateNumber - 1;
+        return mCellWidth * (statePosition + 0.5f);
+    }
+
 
     @SuppressWarnings("SameParameterValue")
     private void updateDescriptionMultilineStatus(boolean multiline) {
