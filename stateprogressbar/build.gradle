@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
 
 ext {
     bintrayRepo = 'maven'
@@ -26,7 +25,6 @@ ext {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 14
