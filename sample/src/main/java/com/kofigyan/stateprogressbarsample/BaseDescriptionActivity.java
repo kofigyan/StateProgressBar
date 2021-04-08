@@ -1,9 +1,10 @@
 package com.kofigyan.stateprogressbarsample;
 
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.kofigyan.stateprogressbar.components.StateItem;

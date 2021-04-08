@@ -10,8 +10,8 @@
         android:id="@+id/state_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:spb_currentStateNumber="three"
+        app:spb_currentStateNumber="3"
         app:spb_enableAllStatesCompleted="true"
-        app:spb_maxStateNumber="four" />
+        app:spb_maxStateNumber="4" />
 
 </LinearLayout>

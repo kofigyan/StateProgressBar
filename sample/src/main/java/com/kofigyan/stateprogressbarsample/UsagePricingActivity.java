@@ -21,7 +21,7 @@ public class UsagePricingActivity extends UsageBaseActivity {
 
         injectBackView();
 
-        stateprogressbar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+        stateprogressbar.setCurrentStateNumber(2);
     }
 
     @Override

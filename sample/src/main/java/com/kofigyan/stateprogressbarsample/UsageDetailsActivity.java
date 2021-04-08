@@ -20,7 +20,7 @@ public class UsageDetailsActivity extends UsageBaseActivity implements UserDetai
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usage_details);
 
-        stateprogressbar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+        stateprogressbar.setCurrentStateNumber(1);
         setupUserDetailsView();
 
     }

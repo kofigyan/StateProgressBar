@@ -12,6 +12,15 @@
         <attr name="spb_currentStateDescriptionColor" format="color" />
         <attr name="spb_stateDescriptionColor" format="color" />
 
+        <attr name="spb_currentStateDescriptionBackgroundColor" format="color" />
+        <attr name="spb_stateDescriptionBackgroundColor" format="color" />
+
+        <attr name="spb_stateHighlightMode" format="enum">
+            <enum name="none" value="0" />
+            <enum name="current" value="1" />
+            <enum name="finished" value="2" />
+        </attr>
+
         <attr name="spb_stateSize" format="dimension" />
 
         <attr name="spb_stateTextSize" format="dimension" />
@@ -39,26 +48,16 @@
         <attr name="spb_justifyMultilineDescription" format="boolean" />
 
         <attr name="spb_descriptionLinesSpacing" format="dimension" />
+        <attr name="spb_descriptionFontFamily" format="reference" />
 
         <attr name="spb_maxDescriptionLines" format="integer" />
 
 
-        <attr name="spb_currentStateNumber" format="enum">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
-            <enum name="four" value="4" />
-            <enum name="five" value="5" />
-        </attr>
+        <attr name="spb_currentStateNumber" format="integer" />
 
+        <attr name="spb_maxStateNumber" format="integer" />
 
-        <attr name="spb_maxStateNumber" format="enum">
-            <enum name="one" value="1" />
-            <enum name="two" value="2" />
-            <enum name="three" value="3" />
-            <enum name="four" value="4" />
-            <enum name="five" value="5" />
-        </attr>
+        <attr name="spb_textStartNumber" format="integer" />
 
     </declare-styleable>
 

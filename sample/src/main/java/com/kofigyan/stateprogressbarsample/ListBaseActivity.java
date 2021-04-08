@@ -3,11 +3,12 @@ package com.kofigyan.stateprogressbarsample;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kofigyan.stateprogressbarsample.not_stateprogressbar.custom.DividerItemDecoration;
 
