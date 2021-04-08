@@ -485,6 +485,7 @@ public class StateProgressBar extends View {
 
     public void setMaxStateNumber(int maximumState) {
         mMaxStateNumber = maximumState;
+        computeCellWidth();
         resolveMaxStateNumber();
     }
 
@@ -899,13 +900,16 @@ public class StateProgressBar extends View {
                 build();
     }
 
+    private void computeCellWidth() {
+        mCellWidth = (float)getWidth() / mMaxStateNumber;
+        mNextCellWidth = mCellWidth;
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        mCellWidth = (float)getWidth() / mMaxStateNumber;
-        mNextCellWidth = mCellWidth;
+        computeCellWidth();
     }
 
     @Override
