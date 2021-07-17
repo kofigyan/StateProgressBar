@@ -2,7 +2,7 @@ package com.kofigyan.stateprogressbarsample.not_stateprogressbar.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import java.util.List;
 
 import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.ASCENDING;
 import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.DESCENDING;
-import static com.kofigyan.stateprogressbarsample.not_stateprogressbar.utils.Constants.IS_DESCENDING_ASCENDING_OPTIONS;
 
 /**
  * Created by Kofi Gyan on 7/12/2016.

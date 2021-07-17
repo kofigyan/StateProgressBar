@@ -1,13 +1,8 @@
 package com.kofigyan.stateprogressbarsample;
 
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import com.kofigyan.stateprogressbar.StateProgressBar;
-import com.kofigyan.stateprogressbar.components.StateItem;
-import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 
 
 /**

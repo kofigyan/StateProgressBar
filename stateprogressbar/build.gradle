@@ -24,11 +24,11 @@ ext {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -41,9 +41,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 }
 
-apply from: 'https://raw.githubusercontent.com/kofigyan/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/kofigyan/JCenter/master/bintrayv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/kofigyan/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/kofigyan/JCenter/master/bintrayv1.gradle'
